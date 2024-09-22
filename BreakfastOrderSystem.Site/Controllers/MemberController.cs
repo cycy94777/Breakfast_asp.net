@@ -33,7 +33,7 @@ namespace BreakfastOrderSystem.Site.Controllers
         }
 
 
-        // 黑名單
+        // 黑名單test
         public ActionResult test()
         {
             var blacklistMembers = _memberService.GetBlacklist();

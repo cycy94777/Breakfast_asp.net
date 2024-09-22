@@ -12,18 +12,33 @@ namespace BreakfastOrderSystem.Site.Models.EFModels
         public Order()
         {
             OrderDetails = new HashSet<OrderDetail>();
+            PointDetails = new HashSet<PointDetail>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int OrderID { get; set; }
+        public int Id { get; set; }
 
-        public DateTime OrderDateTime { get; set; }
+        public int TakeOrderNumber { get; set; }
+
+        public DateTime OrderTime { get; set; }
+
+        public DateTime TakeTime { get; set; }
 
         public int? MemberID { get; set; }
 
-        public decimal TotalAmount { get; set; }
+        public int Total { get; set; }
+
+        public int PointsUsed { get; set; }
+
+        public int FinalTotal { get; set; }
+
+        public int OrderStatus { get; set; }
+
+        public virtual Member Member { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PointDetail> PointDetails { get; set; }
     }
 }

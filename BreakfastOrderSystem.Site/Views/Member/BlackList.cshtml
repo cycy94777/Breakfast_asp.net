@@ -93,7 +93,7 @@
                 } else {
                     // 根據會員姓名篩選資料
                     filteredData = originalData.filter(member =>
-                        member.MemberName.toLowerCase().includes(searchTerm)
+                        member.Name.toLowerCase().includes(searchTerm)
                     );
                 }
 
@@ -117,13 +117,13 @@
                     const row = document.createElement("tr");
 
                     row.innerHTML = `
-                        <td>${member.MemberName}</td>
-                        <td>${member.Email}</td>
+                        <td>${member.Name}</td>
+                        <td>${member.Account}</td>
                         <td>${member.Phone}</td>
-                        <td>${formatDate(member.RegisterDate)}</td>
+                        <td>${formatDate(member.RegistrationDate)}</td>
                         <td>
                             <form action="/Member/Unblock" method="post" style="display:inline;">
-                                <input type="hidden" name="email" value="${member.Email}" />
+                                <input type="hidden" name="email" value="${member.Account}" />
                                 <button type="submit" class="btn btn-light" style="color:#A9A9A9; width: 80px; height: 30px; font-size: 12px;">
                                     解除封鎖
                                 </button>

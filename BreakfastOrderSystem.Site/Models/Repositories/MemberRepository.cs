@@ -1,4 +1,5 @@
 ﻿using BreakfastOrderSystem.Site.Models.EFModels;
+using BreakfastOrderSystem.Site.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,26 +23,32 @@ namespace BreakfastOrderSystem.Site.Models.Repositories
             return memberData.ToList();
         }
 
+        public IEnumerable<PointDetail> GetPointDetail()
+        {
+            var pointDetail = _db.PointDetails;
+            return pointDetail.ToList();
+        }
+
         public Member GetMember(string memberName)
         {
-            return _db.Members.FirstOrDefault(m => m.MemberName == memberName);
+            return _db.Members.FirstOrDefault(m => m.Name == memberName);
         }
 
         // 獲得被列進黑名單的會員
         public IEnumerable<Member> GetBlacklistedMembers()
         {
             return _db.Members
-                           .Where(m => m.IsInBlacklist)
+                           .Where(m => m.BlackList)
                            .ToList();
         }
 
         // 將指定會員移出黑名單
-        public void UnblockMember(string email)
+        public void UnblockMember(string account)
         {
-            var member = _db.Members.FirstOrDefault(m => m.Email == email);
+            var member = _db.Members.FirstOrDefault(m => m.Account == account);
             if (member != null)
             {
-                member.IsInBlacklist = false;
+                member.BlackList = false;
                 _db.SaveChanges();
             }
         }

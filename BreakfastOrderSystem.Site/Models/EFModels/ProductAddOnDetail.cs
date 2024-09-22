@@ -8,17 +8,30 @@ namespace BreakfastOrderSystem.Site.Models.EFModels
 
     public partial class ProductAddOnDetail
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int ProductAddOnID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ProductAddOnDetail()
+        {
+            OrderAddOnDetails = new HashSet<OrderAddOnDetail>();
+        }
 
-        public int? ProductID { get; set; }
+        public int Id { get; set; }
 
-        public int? AddOnCategoryID { get; set; }
+        public int ProductId { get; set; }
 
-        public int? AddOnOptionID { get; set; }
+        public int AddOnCategoryId { get; set; }
+
+        public int AddOnOptionId { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string AddOnOptionName { get; set; }
+
+        public virtual AddOnCategory AddOnCategory { get; set; }
 
         public virtual AddOnOption AddOnOption { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrderAddOnDetail> OrderAddOnDetails { get; set; }
 
         public virtual Product Product { get; set; }
     }

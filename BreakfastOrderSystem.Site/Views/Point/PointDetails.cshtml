@@ -1,10 +1,10 @@
-﻿@model IEnumerable<BreakfastOrderSystem.Site.Models.ViewModels.MemberDetailVm>
+﻿@model IEnumerable<BreakfastOrderSystem.Site.Models.ViewModels.PointDetailVm>
 
 @{
-    ViewBag.Title = "MemberDetails";
+    ViewBag.Title = "PointDetails";
 }
 
-<h2 class="fw-bold mt-2 mb-4">會員明細</h2>
+<h2 class="fw-bold mt-2 mb-2">點數明細</h2>
 
 <div class="row mb-3" style="margin-bottom: 10px;">
     <div class="col-12">
@@ -25,42 +25,53 @@
 <table class="table table-striped">
     <thead>
         <tr>
+
             <th>會員名稱</th>
-            <th>電子郵件</th>
-            <th>電話</th>
-            <th>點數</th>
-            <th>註冊日</th>
+            <th>訂單Id</th>
+            <th>原有點數</th>
+            <th>使用點數</th>
+            <th>獲得點數</th>
+            <th>時間</th>
+            <th>剩餘點數</th>
+
         </tr>
     </thead>
 
-    <tbody id="memberDetailTableBody">
+
+
+    @*@foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.recordName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Original)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Used)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Earned)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Remaining)
+                </td>
+
+            </tr>
+        }*@
+    <tbody id="pointDetailTableBody">
         <!-- 這裡將由 JavaScript 動態填充 -->
     </tbody>
+
 </table>
-
-@*@foreach (var item in Model) {
-        <tr>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Point)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RegisterDate)
-            </td>
-
-        </tr>
-    }*@
-
-@*</tabljavascript:void(0);e>*@
 
 @*分頁*@
 <nav aria-label="Page navigation">
@@ -73,20 +84,18 @@
 @section Scripts{
     <script>
 
-        // 格式化日期函數
         function formatDate(dateString) {
-            // 如果日期字符串是 /Date(1725120000000)/ 格式
-            if (dateString.startsWith("/Date(") && dateString.endsWith(")/")) {
-                // 提取毫秒數部分
+            // 檢查是否為 "/Date(...)/" 格式
+            if (typeof dateString === 'string' && dateString.startsWith("/Date(") && dateString.endsWith(")/")) {
+                // 提取毫秒數
                 const milliseconds = parseInt(dateString.substring(6, dateString.length - 2), 10);
                 const date = new Date(milliseconds);
                 if (isNaN(date.getTime())) {
-                    // 檢查日期是否有效
                     return 'Invalid Date';
                 }
                 const year = date.getFullYear();
-                const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份從 0 開始，需要加 1，並確保有兩位數
-                const day = String(date.getDate()).padStart(2, '0'); // 確保日期有兩位數
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
                 return `${year}/${month}/${day}`;
             }
 
@@ -96,15 +105,16 @@
                 return 'Invalid Date';
             }
             const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份從 0 開始，需要加 1，並確保有兩位數
-            const day = String(date.getDate()).padStart(2, '0'); // 確保日期有兩位數
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
             return `${year}/${month}/${day}`;
         }
 
 
 
+
         document.addEventListener("DOMContentLoaded", () => {
-            const maxRows = 7; // 每頁顯示的最大行數
+            const maxRows = 2; // 每頁顯示的最大行數
             let currentPage = 1; // 當前頁面
 
             // 將 Razor 模型數據序列化為 JavaScript 對象
@@ -122,8 +132,8 @@
                     filteredData = originalData;
                 } else {
                     // 根據會員姓名篩選資料
-                    filteredData = originalData.filter(member =>
-                        member.Name.toLowerCase().includes(searchTerm)
+                    filteredData = originalData.filter(record =>
+                        record.MemberName.toLowerCase().includes(searchTerm)
                     );
                 }
 
@@ -136,22 +146,25 @@
 
             function renderTable(page) {
                 const totalPages = Math.ceil(filteredData.length / maxRows);
-                const tbody = document.getElementById("memberDetailTableBody");
+                const tbody = document.getElementById("pointDetailTableBody");
                 tbody.innerHTML = ""; // 清空表格內容
 
                 const start = (page - 1) * maxRows;
                 const end = Math.min(start + maxRows, filteredData.length);
 
                 for (let i = start; i < end; i++) {
-                    const member = filteredData[i];
+                    const record = filteredData[i];
                     const row = document.createElement("tr");
-
+                    console.log(formatDate(record.Remaining));
                     row.innerHTML = `
-                        <td>${member.Name}</td>
-                        <td>${member.Account}</td>
-                        <td>${member.Phone}</td>
-                        <td>${member.Points}</td>
-                        <td>${formatDate(member.RegistrationDate)}</td>
+                        <td>${record.MemberName}</td>
+                        <td>${record.OrderId}</td>
+                        <td>${record.Original}</td>
+                        <td>${record.Used}</td>
+                        <td>${record.Earned}</td>
+                        <td>${formatDate(record.Date)}</td>
+                        <td>${record.Remaining}</td>
+                        
                     `;
 
                     tbody.appendChild(row);

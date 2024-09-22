@@ -14,11 +14,16 @@ namespace BreakfastOrderSystem.Site.Models.EFModels
             Products = new HashSet<Product>();
         }
 
-        public int ProductCategoryID { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string ProductCategoryName { get; set; }
+        public string Name { get; set; }
+
+        [StringLength(255)]
+        public string Image { get; set; }
+
+        public int? DisplayOrder { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }

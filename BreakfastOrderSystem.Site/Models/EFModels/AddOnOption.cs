@@ -14,15 +14,17 @@ namespace BreakfastOrderSystem.Site.Models.EFModels
             ProductAddOnDetails = new HashSet<ProductAddOnDetail>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int AddOnOptionID { get; set; }
+        public int Id { get; set; }
 
-        [StringLength(100)]
-        public string AddOnOptionName { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string Name { get; set; }
 
-        public int? AddOnCategoryID { get; set; }
+        public int AddOnCategoryId { get; set; }
 
-        public decimal? AddOnOptionPrice { get; set; }
+        public int Price { get; set; }
+
+        public int? DisplayOrder { get; set; }
 
         public virtual AddOnCategory AddOnCategory { get; set; }
 

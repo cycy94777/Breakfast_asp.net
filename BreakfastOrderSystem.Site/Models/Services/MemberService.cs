@@ -22,11 +22,11 @@ namespace BreakfastOrderSystem.Site.Models.Services
             var members = _memberRepository.GetMembers();
             return members.Select(m => new MemberDetailVm
             {
-                MemberName = m.MemberName,
-                Email = m.Email,
+                Name = m.Name,
+                Account = m.Account,
                 Phone = m.Phone,
-                Point = m.Point,
-                RegisterDate = m.RegisterDate,
+                Points = m.Points,
+                RegistrationDate = m.RegistrationDate,
             }).ToList();
         }
 
@@ -36,18 +36,18 @@ namespace BreakfastOrderSystem.Site.Models.Services
             var members = _memberRepository.GetBlacklistedMembers();
             return members.Select(m => new MemberDetailVm
             {
-                MemberName = m.MemberName,
-                Email = m.Email,
+                Name = m.Name,
+                Account = m.Account,
                 Phone = m.Phone,
-                Point = m.Point,
-                RegisterDate = m.RegisterDate,
+                Points = m.Points,
+                RegistrationDate = m.RegistrationDate,
             }).ToList();
         }
 
         // 解除封鎖會員
-        public void UnblockMember(string email)
+        public void UnblockMember(string account)
         {
-            _memberRepository.UnblockMember(email);
+            _memberRepository.UnblockMember(account);
         }
     }
 }

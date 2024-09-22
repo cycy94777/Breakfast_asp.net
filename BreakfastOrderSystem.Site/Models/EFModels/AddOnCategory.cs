@@ -12,18 +12,23 @@ namespace BreakfastOrderSystem.Site.Models.EFModels
         public AddOnCategory()
         {
             AddOnOptions = new HashSet<AddOnOption>();
+            ProductAddOnDetails = new HashSet<ProductAddOnDetail>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int AddOnCategoryID { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string AddOnCategoryName { get; set; }
+        public string Name { get; set; }
+
+        public int? DisplayOrder { get; set; }
 
         public bool IsSingleChoice { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AddOnOption> AddOnOptions { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductAddOnDetail> ProductAddOnDetails { get; set; }
     }
 }

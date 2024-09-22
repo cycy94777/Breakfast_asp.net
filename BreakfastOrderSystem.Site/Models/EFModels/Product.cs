@@ -15,22 +15,22 @@ namespace BreakfastOrderSystem.Site.Models.EFModels
             ProductAddOnDetails = new HashSet<ProductAddOnDetail>();
         }
 
-        public int ProductID { get; set; }
+        public int Id { get; set; }
 
-        public int ProductCategoryID { get; set; }
+        public int ProductCategoryId { get; set; }
 
         [Required]
-        [StringLength(100)]
-        public string ProductName { get; set; }
+        [StringLength(50)]
+        public string Name { get; set; }
 
-        public decimal Price { get; set; }
+        public int Price { get; set; }
 
         [StringLength(255)]
-        public string ProductImage { get; set; }
+        public string Image { get; set; }
 
-        public bool? IsAvailable { get; set; }
+        public bool IsAvailable { get; set; }
 
-        public string Description { get; set; }
+        public int? DisplayOrder { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
