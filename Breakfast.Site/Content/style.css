@@ -1,0 +1,214 @@
+﻿html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #d3d3d3; /* 灰色背景 */
+    height: 100%;
+    overflow: hidden; /* 隱藏整個視窗的捲軸 */
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+.top-bar {
+    background-color: #d3d3d3; /* 灰色背景 */
+    padding: 10px 20px;
+    color: black; /* 確保文字在灰色背景上可見 */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: fixed; /* 固定在頁面頂部 */
+    width: calc(100% - 200px); /* 減去側邊欄的寬度 */
+    top: 0; /* 固定在頂部 */
+    left: 200px; /* 與側邊欄對齊 */
+    z-index: 1; /* 確保在側邊欄之下 */
+}
+
+    .top-bar .greeting {
+        margin-right: 10px;
+        color: black; /* 確保文字在灰色背景上可見 */
+    }
+
+    .top-bar .user-icon {
+        width: 30px;
+        height: 30px;
+        background-color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        color: #2c6d94;
+    }
+
+.sidebar {
+    width: 200px;
+    background-color: #2b729f; /* 藍色背景 */
+    color: white;
+    height: 100vh; /* 貫穿整個頁面高度 */
+    position: fixed;
+    top: 0; /* 固定在頁面頂部 */
+    left: 0;
+    z-index: 2; /* 確保在 top-bar 之上 */
+    padding-top: 70px; /* 留出 top-bar 的高度 */
+}
+
+    .sidebar .nav-item {
+        border-bottom: 1px solid #4a8ab3;
+        text-align: center;
+    }
+
+    .sidebar .nav-link {
+        color: white;
+        padding: 10px 0;
+        text-align: center;
+        display: block;
+        width: 100%;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+.nav-link.active, .nav-link:hover {
+    background-color: #2a5685; /* Darker blue background for active and hover */
+    color: white; /* White text color for active and hover */
+}
+
+.sidebar .submenu-wrapper {
+    position: relative;
+    width: calc(100% - 20px); /* 確保容器比 sidebar 短一些，給出邊距 */
+    margin: 0 10px; /* 確保外邊距與 sidebar 的顏色一致 */
+}
+
+.submenu-wrapper {
+    display: none; /* Hide by default */
+}
+
+.nav-link.active {
+    font-weight: bold;
+}
+
+.sidebar .submenu {
+    background-color: #bdeafd; /* 確保與 sidebar 顏色一致 */
+    border-radius: 5px; /* 圓角 */
+    padding: 10px; /* 增加內距讓內容不緊貼邊界 */
+    width: 100%; /* 使用父容器的寬度 */
+    display: none; /* 預設縮起來 */
+}
+
+.nav-item.active .submenu-wrapper {
+    display: block; /* Show submenu when parent is active */
+}
+
+.sidebar .submenu .nav-link {
+    color: black;
+    background-color: #acd9ed; /* 子選項的背景色，與主 sidebar 顏色一致 */
+    padding: 10px 15px;
+    border-radius: 5px; /* 圓角 */
+    display: block;
+    margin-bottom: 5px; /* 子選項之間的距離 */
+    text-align: center; /* 文字居中 */
+    transition: background-color 0.3s; /* 背景顏色變化的過渡效果 */
+    text-decoration: none;
+}
+
+    .sidebar .submenu .nav-link:hover, .sidebar .submenu .nav-link.active {
+        background-color: #80b3cf; /* 滑鼠經過時變色 */
+    }
+
+.sidebar .nav-item.active > .nav-link {
+    background-color: #1f506b;
+}
+
+
+
+.main-content-wrapper {
+    margin-left: 200px; /* 給出側邊欄的寬度 */
+    background-color: #d3d3d3; /* 灰色背景 */
+    min-height: 100vh; /* 確保內容區的高度至少與視窗高度一致 */
+    display: flex;
+    flex-direction: column; /* 使容器垂直排列 */
+    justify-content: center;
+    align-items: center;
+    padding: 0; /* 移除上下 padding */
+}
+
+.main-content {
+    background-color: #ffffff; /* 白色區塊 */
+    border-radius: 5px;
+    width: 80vw; /* 寬度佔視窗寬度的80% */
+    height: 80vh; /* 高度佔視窗高度的80% */
+    /* max-width: 1000px; 最大寬度限制 */
+    min-width: 300px; /* 最小寬度限制 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 增加陰影效果 */
+    overflow-y: hidden; /* 在需要時顯示滾動條 */
+    box-sizing: border-box;
+    padding: 20px; /* 添加內部填充 */
+    margin-top: 0px; /* 調整這個數值以改變靠近 top bar 的距離 */
+}
+
+    .main-content table th {
+        background-color: #1a5d9f !important;
+        color: white !important;
+        border: 1px solid white !important;
+        text-align: center;
+    }
+
+    /* Ensure table cells have light gray borders and center text */
+    .main-content table td {
+        border: 1px solid #ccc !important;
+        text-align: center; /* Center text in data cells */
+    }
+
+/* 公休管理 */
+.align-items-center {
+    /* Ensure the items are centered vertically */
+    align-items: center;
+}
+
+.input-group {
+    max-width: 200px;
+}
+
+.input-group, .btn {
+    height: 100%;
+    margin-top: 12px;
+}
+
+    .input-group .form-control, .btn {
+        height: 38px; /* Adjust height as needed */
+        margin: 0;
+    }
+
+.input-group-text {
+    height: 38px; /* Adjust height as needed */
+    display: flex;
+    align-items: center;
+    padding: 0 0.75rem;
+}
+
+.container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    min-height: 400px; /* 根據需要調整高度 */
+    overflow: hidden; /* 隱藏白色區塊中的捲軸 */
+}
+
+.table-container {
+    overflow: hidden; /* 隱藏表格內的捲軸 */
+}
+
+.table {
+    width: 100%; /* 確保表格寬度適應容器 */
+}
+
+.table, .container {
+    box-sizing: border-box; /* 包括邊框和內距在內的總寬度 */
+}
+
+input {
+    background-color: white !important;
+}

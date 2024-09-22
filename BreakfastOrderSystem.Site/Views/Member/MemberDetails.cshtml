@@ -1,0 +1,220 @@
+﻿@model IEnumerable<BreakfastOrderSystem.Site.Models.ViewModels.MemberDetailVm>
+
+@{
+    ViewBag.Title = "MemberDetails";
+}
+
+<h2 class="fw-bold mt-2 mb-4">會員明細</h2>
+
+<div class="row mb-3" style="margin-bottom: 10px;">
+    <div class="col-12">
+        <div class="d-flex justify-content-end" style="margin-bottom:7px;">
+            <div class="d-flex align-items-center">
+                <div class="input-group me-2">
+                    <span class="input-group-text" id="basic-addon1">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                    <input type="text" id="searchInput" class="form-control" placeholder="請輸入會員姓名" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+                <button class="btn btn-light" id="searchButton" type="button">搜尋</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>會員名稱</th>
+            <th>電子郵件</th>
+            <th>電話</th>
+            <th>點數</th>
+            <th>註冊日</th>
+        </tr>
+    </thead>
+    
+    <tbody id="memberDetailTableBody">
+        <!-- 這裡將由 JavaScript 動態填充 -->
+    </tbody>
+@*@foreach (var item in Model) {
+    <tr>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.MemberName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Point)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegisterDate)
+        </td>
+        
+    </tr>
+}*@
+
+</table>
+
+@*分頁*@
+<nav aria-label="Page navigation">
+    <ul class="pagination" id="pagination">
+        <!-- 分頁按鈕將由 JavaScript 動態填充 -->
+    </ul>
+</nav>
+
+
+@section Scripts{
+    <script>
+
+        // 格式化日期函數
+        function formatDate(dateString) {
+            // 如果日期字符串是 /Date(1725120000000)/ 格式
+            if (dateString.startsWith("/Date(") && dateString.endsWith(")/")) {
+                // 提取毫秒數部分
+                const milliseconds = parseInt(dateString.substring(6, dateString.length - 2), 10);
+                const date = new Date(milliseconds);
+                if (isNaN(date.getTime())) {
+                    // 檢查日期是否有效
+                    return 'Invalid Date';
+                }
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份從 0 開始，需要加 1，並確保有兩位數
+                const day = String(date.getDate()).padStart(2, '0'); // 確保日期有兩位數
+                return `${year}/${month}/${day}`;
+            }
+
+            // 如果是其他格式
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) {
+                return 'Invalid Date';
+            }
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份從 0 開始，需要加 1，並確保有兩位數
+            const day = String(date.getDate()).padStart(2, '0'); // 確保日期有兩位數
+            return `${year}/${month}/${day}`;
+        }
+
+
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const maxRows = 7; // 每頁顯示的最大行數
+            let currentPage = 1; // 當前頁面
+
+            // 將 Razor 模型數據序列化為 JavaScript 對象
+            let originalData = @Html.Raw(Json.Encode(Model));
+            let filteredData = originalData;
+
+            const searchInput = document.getElementById("searchInput");
+            const searchButton = document.getElementById("searchButton");
+
+            searchButton.addEventListener("click", () => {
+                const searchTerm = searchInput.value.trim().toLowerCase();
+
+                if (searchTerm === "") {
+                    // 如果搜尋框為空，顯示所有會員
+                    filteredData = originalData;
+                } else {
+                    // 根據會員姓名篩選資料
+                    filteredData = originalData.filter(member =>
+                        member.MemberName.toLowerCase().includes(searchTerm)
+                    );
+                }
+
+                // 重置當前頁
+                currentPage = 1;
+
+                // 重新渲染表格和分頁
+                renderTable(currentPage);
+            });
+
+            function renderTable(page) {
+                const totalPages = Math.ceil(filteredData.length / maxRows);
+                const tbody = document.getElementById("memberDetailTableBody");
+                tbody.innerHTML = ""; // 清空表格內容
+
+                const start = (page - 1) * maxRows;
+                const end = Math.min(start + maxRows, filteredData.length);
+
+                for (let i = start; i < end; i++) {
+                    const member = filteredData[i];
+                    const row = document.createElement("tr");
+
+                    row.innerHTML = `
+                        <td>${member.MemberName}</td>
+                        <td>${member.Email}</td>
+                        <td>${member.Phone}</td>
+                        <td>${member.Point}</td>
+                        <td>${formatDate(member.RegisterDate)}</td>
+                    `;
+
+                    tbody.appendChild(row);
+                }
+
+                // 渲染分頁按鈕
+                renderPagination(totalPages);
+            }
+
+            function renderPagination(totalPages) {
+                const pagination = document.getElementById("pagination");
+                pagination.innerHTML = ""; // 清空舊的分頁按鈕
+
+                const prevPage = document.createElement("li");
+                prevPage.classList.add("page-item");
+                prevPage.innerHTML = `
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>`;  
+
+                prevPage.addEventListener("click", () => {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        renderTable(currentPage);
+                    }
+                });
+                pagination.appendChild(prevPage);
+
+                for (let i = 1; i <= totalPages; i++) {
+                    const pageItem = document.createElement("li");
+                    pageItem.classList.add("page-item");
+                    if (i === currentPage) {
+                        pageItem.classList.add("active");
+                    }
+                    pageItem.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+                    pageItem.addEventListener("click", () => {
+                        currentPage = i;
+                        renderTable(currentPage);
+                    });
+                    pagination.appendChild(pageItem);
+                }
+
+                const nextPage = document.createElement("li");
+                nextPage.classList.add("page-item");
+                nextPage.innerHTML = `
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>`;
+                nextPage.addEventListener("click", () => {
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        renderTable(currentPage);
+                    }
+                });
+                pagination.appendChild(nextPage);
+            }
+
+            // 初始化顯示首頁
+            renderTable(currentPage);
+        });
+
+
+
+    </script>
+    
+    
+    
+    }

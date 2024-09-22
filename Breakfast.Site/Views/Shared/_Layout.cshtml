@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - 早餐店後台系統</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/4ac8f2d444.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <!-- 側邊欄 -->
+        <div class="sidebar">
+            <nav class="nav flex-column">
+                <div class="nav-item">
+                    <a class="nav-link active" href="@Url.Action("Index", "Home")">首頁</a>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Manage", "Store")">商店管理</a>
+                </div>
+                <div class="nav-item nested-menu">
+                    <a class="nav-link toggle-submenu" href="javascript:void(0);">商品管理</a>
+                    <div class="submenu-wrapper">
+                        <div class="submenu">
+                            <a class="nav-link" href="@Url.Action("AddOnCategory", "Product")">加選類別管理</a>
+                            <a class="nav-link" href="@Url.Action("AddOnOption", "Product")">加選資訊管理</a>
+                            <a class="nav-link" href="@Url.Action("ProductCategory", "Product")">商品類別管理</a>
+                            <a class="nav-link" href="@Url.Action("Product", "Product")">商品資訊管理</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item nested-menu">
+                    <a class="nav-link toggle-submenu" href="javascript:void(0);">會員管理</a>
+                    <div class="submenu-wrapper">
+                        <div class="submenu">
+                            <a class="nav-link" href="@Url.Action("Detail", "MemberDetails")">會員明細</a>
+                            <a class="nav-link" href="@Url.Action("Blacklist", "Member")">黑名單管理</a>
+                            <a class="nav-link" href="@Url.Action("Points", "Member")">會員點數明細</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item nested-menu">
+                    <a class="nav-link toggle-submenu" href="javascript:void(0);">營業報告</a>
+                    <div class="submenu-wrapper">
+                        <div class="submenu">
+                            <a class="nav-link" href="@Url.Action("Summary", "Report")">營業概況</a>
+                            <a class="nav-link" href="@Url.Action("Graph", "Report")">營業趨勢圖</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link" href="@Url.Action("OrderList", "Order")">訂單列表</a>
+                </div>
+            </nav>
+        </div>
+
+        <!-- 頂部欄 -->
+        <div class="top-bar">
+            <div class="greeting">Hi, @ViewBag.StoreName</div>
+            <div class="user-icon" style="background-color: #d3d3d3">
+                <i class="fa-solid fa-door-open" style="color:rgba(39, 38, 38, 0.869);"></i>
+            </div>
+        </div>
+
+        <!-- 主內容區塊 -->
+        <div class="main-content-wrapper">
+            <!-- 這裡會動態渲染不同的頁面內容 -->
+            <div class="main-content" id="main-content">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal container -->
+    <div id="modal-container"></div>
+
+    <script src="~/Scripts/function.js"></script>
+    <script src="~/Scripts/loadOperationGraph.js"></script>
+    <script src="~/Scripts/script.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
