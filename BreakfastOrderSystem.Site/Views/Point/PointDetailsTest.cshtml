@@ -1,0 +1,124 @@
+﻿@model IEnumerable<BreakfastOrderSystem.Site.Models.ViewModels.PointDetailVm>
+
+@{
+    ViewBag.Title = "PointDetails";
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<h2 class="fw-bold mt-2 mb-2">點數明細</h2>
+
+<div class="row mb-3" style="margin-bottom: 10px;">
+    <div class="col-12">
+        <div class="d-flex justify-content-end" style="margin-bottom:7px;">
+            <div class="d-flex align-items-center">
+                <div class="input-group me-2">
+                    <span class="input-group-text" id="basic-addon1">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                    <input type="text" id="searchInput" class="form-control" placeholder="請輸入會員姓名" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+                <button class="btn btn-light" id="searchButton" type="button">搜尋</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+
+            <th>會員名稱</th>
+            <th>訂單Id</th>
+            <th>原有點數</th>
+            <th>使用點數</th>
+            <th>獲得點數</th>
+            <th>時間</th>
+            <th>剩餘點數</th>
+
+        </tr>
+    </thead>
+
+
+
+
+    <tbody id="pointDetailTableBody">
+        <!-- 這裡將由 JavaScript 動態填充 -->
+    </tbody>
+
+</table>
+
+@*分頁*@
+<nav aria-label="Page navigation">
+    <ul class="pagination" id="pagination">
+        <!-- 分頁按鈕將由 JavaScript 動態填充 -->
+    </ul>
+</nav>
+
+@section Scripts{
+    <script src="~/Scripts/Functions/Date.js"></script>
+    <script src="~/Scripts/Functions/PaginationT.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const maxRows = 2; // 每頁顯示的最大行數
+        let currentPage = 1; // 當前頁面
+
+        // 將 Razor 模型數據序列化為 JavaScript 對象
+        let originalData = @Html.Raw(Json.Encode(Model));
+        let filteredData = originalData; // 定義為全局變數
+
+        const searchInput = document.getElementById("searchInput");
+        const searchButton = document.getElementById("searchButton");
+
+        searchButton.addEventListener("click", () => {
+            const searchTerm = searchInput.value.trim().toLowerCase();
+
+            if (searchTerm === "") {
+                filteredData = originalData; // 如果搜尋框為空，顯示所有會員
+            } else {
+                filteredData = originalData.filter(record =>
+                    record.MemberName.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            currentPage = 1; // 重置當前頁
+            renderTable(currentPage); // 調用 renderTable
+        });
+
+        // 將 renderTable 定義為全局函數
+        window.renderTable = function (page) {
+            const totalPages = Math.ceil(filteredData.length / maxRows);
+            const tbody = document.getElementById("pointDetailTableBody");
+            tbody.innerHTML = ""; // 清空表格內容
+
+            const start = (page - 1) * maxRows;
+            const end = Math.min(start + maxRows, filteredData.length);
+
+            for (let i = start; i < end; i++) {
+                const record = filteredData[i];
+                const row = document.createElement("tr");
+
+                row.innerHTML = `
+                    <td>${record.MemberName}</td>
+                    <td>${record.OrderId}</td>
+                    <td>${record.Original}</td>
+                    <td>${record.Used}</td>
+                    <td>${record.Earned}</td>
+                    <td>${formatDate(record.Date)}</td>
+                    <td>${record.Remaining}</td>
+                `;
+
+                tbody.appendChild(row);
+            }
+
+            // 渲染分頁按鈕
+            renderPagination(totalPages, page);
+        };
+
+        // 初始化顯示首頁
+        renderTable(currentPage);
+    });
+    </script>
+
+}
+

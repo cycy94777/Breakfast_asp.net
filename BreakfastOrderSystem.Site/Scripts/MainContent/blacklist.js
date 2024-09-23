@@ -13,3 +13,4 @@ const searchButton = document.getElementById("searchButton");
 // 添加搜索按钮的事件监听器
 searchButton.addEventListener("click", () => {
     const searchTerm = searchInput.value.trim().toLowerCase();
+})

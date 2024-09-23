@@ -1,0 +1,177 @@
+﻿@model IEnumerable<BreakfastOrderSystem.Site.Models.ViewModels.StoreVm>
+
+@{
+    ViewBag.Title = "帳戶資訊";
+}
+
+<h2 class="fw-bold mt-2 mb-2">帳戶資訊</h2>
+
+<div class="row mb-3" style="margin-bottom: 10px;">
+    <div class="col-12">
+        <div class="d-flex justify-content-end" style="margin-bottom:7px;">
+            <div class="d-flex align-items-center">
+                <div class="input-group me-2">
+                    <span class="input-group-text" id="basic-addon1">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                    <input type="text" id="searchInput" class="form-control" placeholder="請輸入店家名稱" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+                <button class="btn btn-light" id="searchButton" type="button">搜尋</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>名稱</th>
+            <th>帳號</th>
+            <th>註冊日</th>
+
+        </tr>
+    </thead>
+
+    @*@foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Account)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegistrationDate)
+                </td>
+            </tr>
+        }*@
+    <tbody id="storeInfoTableBody">
+        <!-- 這裡將由 JavaScript 動態填充 -->
+    </tbody>
+
+</table>
+
+@*分頁*@
+<nav aria-label="Page navigation">
+    <ul class="pagination" id="pagination">
+        <!-- 分頁按鈕將由 JavaScript 動態填充 -->
+    </ul>
+</nav>
+
+
+@section Scripts{
+    <script src="~/Scripts/Functions/Date.js"></script>
+    <script src="~/Scripts/Functions/Pagination.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const maxRows = 2; // 每頁顯示的最大行數
+            let currentPage = 1; // 當前頁面
+
+            // 將 Razor 模型數據序列化為 JavaScript 對象
+            let originalData = @Html.Raw(Json.Encode(Model));
+            let filteredData = originalData;
+
+            const searchInput = document.getElementById("searchInput");
+            const searchButton = document.getElementById("searchButton");
+
+            searchButton.addEventListener("click", () => {
+                const searchTerm = searchInput.value.trim().toLowerCase();
+
+                if (searchTerm === "") {
+                    // 如果搜尋框為空，顯示所有會員
+                    filteredData = originalData;
+                } else {
+                    // 根據會員姓名篩選資料
+                    filteredData = originalData.filter(record =>
+                        record.Name.toLowerCase().includes(searchTerm)
+                    );
+                }
+
+                // 重置當前頁
+                currentPage = 1;
+
+                // 重新渲染表格和分頁
+                renderTable(currentPage);
+        });
+
+        function renderTable(page) {
+            const totalPages = Math.ceil(filteredData.length / maxRows);
+            const tbody = document.getElementById("storeInfoTableBody");
+            tbody.innerHTML = ""; // 清空表格內容
+
+            const start = (page - 1) * maxRows;
+            const end = Math.min(start + maxRows, filteredData.length);
+
+            for (let i = start; i < end; i++) {
+                const record = filteredData[i];
+                const row = document.createElement("tr");
+                
+                row.innerHTML = `
+                    <td>${record.Name}</td>
+                    <td>${record.Account}</td>
+                    <td>${formatDate(record.RegistrationDate)}</td>
+                `;
+
+                tbody.appendChild(row);
+            }
+
+            // 渲染分頁按鈕
+            renderPagination(totalPages);
+        }
+
+        function renderPagination(totalPages) {
+            const pagination = document.getElementById("pagination");
+            pagination.innerHTML = ""; // 清空舊的分頁按鈕
+
+            const prevPage = document.createElement("li");
+            prevPage.classList.add("page-item");
+            prevPage.innerHTML = `
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>`;
+
+            prevPage.addEventListener("click", () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderTable(currentPage);
+                }
+            });
+            pagination.appendChild(prevPage);
+
+            for (let i = 1; i <= totalPages; i++) {
+                const pageItem = document.createElement("li");
+                pageItem.classList.add("page-item");
+                if (i === currentPage) {
+                    pageItem.classList.add("active");
+                }
+                pageItem.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+                pageItem.addEventListener("click", () => {
+                    currentPage = i;
+                    renderTable(currentPage);
+                });
+                pagination.appendChild(pageItem);
+            }
+
+            const nextPage = document.createElement("li");
+            nextPage.classList.add("page-item");
+            nextPage.innerHTML = `
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>`;
+            nextPage.addEventListener("click", () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderTable(currentPage);
+                }
+            });
+            pagination.appendChild(nextPage);
+        }
+
+        // 初始化顯示首頁
+        renderTable(currentPage);
+});
+    </script>
+}

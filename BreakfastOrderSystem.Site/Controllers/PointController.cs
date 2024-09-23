@@ -24,5 +24,16 @@ namespace BreakfastOrderSystem.Site.Controllers
             var pointDetails = _pointService.GetPointDetail();
             return View(pointDetails);
         }
+
+
+        //test
+        public ActionResult PointDetailsTest()
+        {
+            // 從 Service 層獲取轉換後的 ViewModel 資料
+            var pointDetails = _pointService.GetPointDetail();
+            return View(pointDetails);
     }
+
+
+}
 }

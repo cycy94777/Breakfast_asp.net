@@ -17,6 +17,7 @@ namespace BreakfastOrderSystem.Site.Models.Services
             _memberRepository = new MemberRepository();
         }
 
+        // 獲得會員資料
         public List<MemberDetailVm> GetMemberDetails()
         {
             var members = _memberRepository.GetMembers();

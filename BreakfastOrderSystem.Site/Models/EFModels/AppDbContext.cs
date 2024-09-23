@@ -22,6 +22,7 @@ namespace BreakfastOrderSystem.Site.Models.EFModels
         public virtual DbSet<ProductAddOnDetail> ProductAddOnDetails { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Store> Stores { get; set; }
         public virtual DbSet<TakeOrderNumber> TakeOrderNumbers { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -79,6 +80,10 @@ namespace BreakfastOrderSystem.Site.Models.EFModels
                 .HasMany(e => e.ProductAddOnDetails)
                 .WithRequired(e => e.Product)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Store>()
+                .Property(e => e.EncryptedPassword)
+                .IsUnicode(false);
         }
     }
 }

@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "PointDetails";
 }
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">*@
 
 <h2 class="fw-bold mt-2 mb-2">點數明細</h2>
 
@@ -39,34 +40,7 @@
 
 
 
-    @*@foreach (var item in Model)
-        {
-            <tr>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.recordName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OrderId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Original)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Used)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Earned)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Remaining)
-                </td>
-
-            </tr>
-        }*@
     <tbody id="pointDetailTableBody">
         <!-- 這裡將由 JavaScript 動態填充 -->
     </tbody>
@@ -80,46 +54,18 @@
     </ul>
 </nav>
 
-
 @section Scripts{
+    <script src="~/Scripts/Functions/Date.js"></script>
+    <script src="~/Scripts/Functions/Pagination.js"></script>
+
     <script>
-
-        function formatDate(dateString) {
-            // 檢查是否為 "/Date(...)/" 格式
-            if (typeof dateString === 'string' && dateString.startsWith("/Date(") && dateString.endsWith(")/")) {
-                // 提取毫秒數
-                const milliseconds = parseInt(dateString.substring(6, dateString.length - 2), 10);
-                const date = new Date(milliseconds);
-                if (isNaN(date.getTime())) {
-                    return 'Invalid Date';
-                }
-                const year = date.getFullYear();
-                const month = String(date.getMonth() + 1).padStart(2, '0');
-                const day = String(date.getDate()).padStart(2, '0');
-                return `${year}/${month}/${day}`;
-            }
-
-            // 如果是其他格式
-            const date = new Date(dateString);
-            if (isNaN(date.getTime())) {
-                return 'Invalid Date';
-            }
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            return `${year}/${month}/${day}`;
-        }
-
-
-
-
         document.addEventListener("DOMContentLoaded", () => {
             const maxRows = 2; // 每頁顯示的最大行數
             let currentPage = 1; // 當前頁面
 
             // 將 Razor 模型數據序列化為 JavaScript 對象
             let originalData = @Html.Raw(Json.Encode(Model));
-            let filteredData = originalData;
+            let filteredData = originalData; // 定義為全局變數
 
             const searchInput = document.getElementById("searchInput");
             const searchButton = document.getElementById("searchButton");
@@ -128,23 +74,19 @@
                 const searchTerm = searchInput.value.trim().toLowerCase();
 
                 if (searchTerm === "") {
-                    // 如果搜尋框為空，顯示所有會員
-                    filteredData = originalData;
+                    filteredData = originalData; // 如果搜尋框為空，顯示所有會員
                 } else {
-                    // 根據會員姓名篩選資料
                     filteredData = originalData.filter(record =>
                         record.MemberName.toLowerCase().includes(searchTerm)
                     );
                 }
 
-                // 重置當前頁
-                currentPage = 1;
-
-                // 重新渲染表格和分頁
-                renderTable(currentPage);
+                currentPage = 1; // 重置當前頁
+                renderTable(currentPage); // 調用 renderTable
             });
 
-            function renderTable(page) {
+            // 將 renderTable 定義為全局函數
+            window.renderTable = function (page) {
                 const totalPages = Math.ceil(filteredData.length / maxRows);
                 const tbody = document.getElementById("pointDetailTableBody");
                 tbody.innerHTML = ""; // 清空表格內容
@@ -155,7 +97,7 @@
                 for (let i = start; i < end; i++) {
                     const record = filteredData[i];
                     const row = document.createElement("tr");
-                    console.log(formatDate(record.Remaining));
+
                     row.innerHTML = `
                         <td>${record.MemberName}</td>
                         <td>${record.OrderId}</td>
@@ -164,72 +106,19 @@
                         <td>${record.Earned}</td>
                         <td>${formatDate(record.Date)}</td>
                         <td>${record.Remaining}</td>
-                        
                     `;
 
                     tbody.appendChild(row);
                 }
 
                 // 渲染分頁按鈕
-                renderPagination(totalPages);
-            }
-
-            function renderPagination(totalPages) {
-                const pagination = document.getElementById("pagination");
-                pagination.innerHTML = ""; // 清空舊的分頁按鈕
-
-                const prevPage = document.createElement("li");
-                prevPage.classList.add("page-item");
-                prevPage.innerHTML = `
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>`;
-
-                prevPage.addEventListener("click", () => {
-                    if (currentPage > 1) {
-                        currentPage--;
-                        renderTable(currentPage);
-                    }
-                });
-                pagination.appendChild(prevPage);
-
-                for (let i = 1; i <= totalPages; i++) {
-                    const pageItem = document.createElement("li");
-                    pageItem.classList.add("page-item");
-                    if (i === currentPage) {
-                        pageItem.classList.add("active");
-                    }
-                    pageItem.innerHTML = `<a class="page-link" href="#">${i}</a>`;
-                    pageItem.addEventListener("click", () => {
-                        currentPage = i;
-                        renderTable(currentPage);
-                    });
-                    pagination.appendChild(pageItem);
-                }
-
-                const nextPage = document.createElement("li");
-                nextPage.classList.add("page-item");
-                nextPage.innerHTML = `
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>`;
-                nextPage.addEventListener("click", () => {
-                    if (currentPage < totalPages) {
-                        currentPage++;
-                        renderTable(currentPage);
-                    }
-                });
-                pagination.appendChild(nextPage);
-            }
+                renderPagination(totalPages, page);
+            };
 
             // 初始化顯示首頁
             renderTable(currentPage);
         });
-
-
-
     </script>
 
-
-
 }
+
