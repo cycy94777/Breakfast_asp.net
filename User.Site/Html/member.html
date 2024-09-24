@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>佳佳早餐首頁</title>
+
+    <link rel="stylesheet" href="/Content/css/layout.css" />
+    <link rel="stylesheet" href="/Content/css/member.css" />
+
+    <script src="https://unpkg.com/vue@3.5.3/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="app">
+        <nav class="navbar">
+
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/html/html/meal.html">
+                    <img src="/Content/images/logo.png" alt="Logo" width="32" height="32" class="d-inline-block align-text-top">
+                    <span class="text-part1">佳佳</span><span class="text-part2">早餐店</span>
+                </a>
+                <div class="navbar-links">
+                    <!-- 根據登入狀態切換顯示 -->
+                    <template v-if="isLoggedIn">
+                        <div class="user-info-dropdown">
+                            <div class="user-info" @click="toggleUserDropdown" :class="{ 'active': userDropdownVisible }">
+                                <img :src="user.profilePhoto" alt="頭像" class="profile-photo">
+                                <span>{{ user.name }}</span>
+                                <i class="fas fa-chevron-down"></i> <!-- 下拉图标 -->
+                            </div>
+                            <transition name="fade">
+                                <div v-if="userDropdownVisible" class="dropdown-menu">
+                                    <a href="#" @click="logout" class="logout-link">
+                                        <i class="fas fa-sign-out-alt"></i> 登出
+                                    </a>
+                                </div>
+                            </transition>
+                        </div>
+                    </template>
+                    <template v-else>
+                        <a href="/Html/login.html" class="btn-link">登入</a>
+                        <a href="/Html/register.html" class="btn-link">註冊</a>
+                    </template>
+                </div>
+            </div>
+        </nav>
+        <div class="container-all">
+            <div class="container-left">
+                <nav id="sidebar">
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#"><i class="fa-regular fa-heart"></i> 再點一次</a>
+                        </li>
+                        <li>
+                            <a href="/Html/meal.html"><i class="fa-solid fa-burger"></i> 餐點點餐</a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" @click="toggleDropdown" id="dropdown">
+                                <i class="fa-regular fa-user"></i> 會員資料
+                            </a>
+                            <transition name="slide-fade">
+                                <ul v-if="dropdownVisible" id="sublist" class="list-unstyled dropdown-content">
+                                    <li><a href="member.html">修改資料</a></li>
+                                    <li><a href="changepassword.html">修改密碼</a></li>
+                                </ul>
+                            </transition>
+                        </li>
+                        <li>
+                            <a href="/Html/orderlist.html"><i class="fa-regular fa-rectangle-list"></i> 訂單列表</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa-regular fa-rectangle-list"></i> 點數明细</a>
+                        </li>
+                    </ul>
+                    <div class="contact-info">
+                        <h4>聯絡資訊</h4>
+                        <p><i class="fa-solid fa-phone"></i> 02-22765377</p>
+                        <p><i class="fa-solid fa-location-dot"></i> 新北市新莊區立信三街12巷65號1樓</p>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="container-right">
+                <div class="main-content">
+                    <div id="edit-info-section" class="section active">
+                        <h2>修改會員資料</h2>
+                        <div class="form-container">
+                            <div class="profile">
+                                <div class="avatar-wrapper">
+                                    <div class="avatar-container" @click="onAvatarClick">
+                                        <img id="profilePhoto" :src="profilePhoto" alt="會員大頭貼" />
+                                        <div class="edit-icon">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </div>
+                                    </div>
+                                    <div class="avatar-label">大頭貼</div>
+                                </div>
+                                <div class="profile-info">
+                                    <p class="name">{{ memberName }}</p>
+                                    <p class="registration-date">{{ registrationDate }} 註冊</p>
+                                </div>
+                            </div>
+
+                            <form class="container">
+                                <label for="name">姓名</label>
+                                <input type="text" id="name" v-model="name" />
+
+                                <label for="email">Email</label>
+                                <input type="email" id="email" v-model="email" />
+
+                                <label for="phone">電話</label>
+                                <input type="text" id="phone" v-model="phone" />
+
+                                <button type="submit">儲存變更</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    dropdownVisible: false,
+                    isLoggedIn: false, // 用來標識是否已登入
+                    user: {}, // 儲存會員資料
+                    userDropdownVisible: false, // 控制用户信息下拉菜单的显示
+                    memberName: '',
+                    registrationDate: '',
+                    name: '',
+                    email: '',
+                    phone: '',
+                    profilePhoto: ''
+                };
+            },
+            methods: {
+                toggleDropdown() {
+                  // 切換下拉選單的狀態
+                  this.dropdownVisible = !this.dropdownVisible;
+
+                  // 將狀態保存到 localStorage
+                  localStorage.setItem('dropdownVisible', this.dropdownVisible);
+              },
+                toggleUserDropdown() {
+                    this.userDropdownVisible = !this.userDropdownVisible; // 切换用户信息的下拉菜单
+                },
+                // 登出
+                logout() {
+                localStorage.removeItem('user'); // 移除用户信息
+                this.isLoggedIn = false; // 标记为未登录
+                window.location.reload(); // 重新加载页面，恢复为未登录状态
+                },
+                // 檢查用戶是否已登入
+                checkLoginStatus() {
+                const userData = localStorage.getItem('user');
+                if (userData) {
+                    this.user = JSON.parse(userData);
+                    this.isLoggedIn = true; // 用户已登录
+                } else {
+                    this.isLoggedIn = false; // 用户未登录
+                }
+                },
+                onAvatarClick() {
+                    const fileInput = document.createElement('input');
+                    fileInput.type = 'file';
+                    fileInput.accept = 'image/*';
+                    fileInput.onchange = (event) => {
+                        const file = event.target.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = (e) => {
+                                this.profilePhoto = e.target.result;
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    };
+                    fileInput.click();
+                },
+                fetchMemberData() {
+                    fetch('/api/MembersApi/Login')
+                        .then(response => response.json())
+                        .then(data => {
+                            const member = data.members[0];
+                            this.memberName = member.name;
+                            this.registrationDate = member.registrationDate;
+                            this.name = member.name;
+                            this.email = member.email;
+                            this.phone = member.phone;
+                            this.profilePhoto = member.profilePhoto;
+                        })
+                        .catch(error => {
+                            console.error('Error fetching members data:', error);
+                        });
+                }
+            },
+            mounted() {
+                this.fetchMemberData();
+                this.checkLoginStatus();
+                 // 當頁面加載時，從 localStorage 中讀取下拉選單的狀態
+              const dropdownStatus = localStorage.getItem('dropdownVisible');
+              if (dropdownStatus !== null) {
+                  this.dropdownVisible = JSON.parse(dropdownStatus);
+              }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

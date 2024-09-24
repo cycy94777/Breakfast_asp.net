@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>佳佳早餐首頁</title>
+
+    <link rel="stylesheet" href="/Content/layout.css" />
+    <link rel="stylesheet" href="/Content/orderlist.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
+
+    <script src="https://unpkg.com/vue@3.5.3/dist/vue.global.js"></script>
+    <script src="/Scripts/orderlist.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="app">
+        <nav class="navbar">
+
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/html/html/meal.html">
+                    <img src="/Content/images/logo.png" alt="Logo" width="32" height="32" class="d-inline-block align-text-top">
+                    <span class="text-part1">佳佳</span><span class="text-part2">早餐店</span>
+                </a>
+                <div class="navbar-links">
+                    <!-- 根據登入狀態切換顯示 -->
+                    <template v-if="isLoggedIn">
+                        <div class="user-info-dropdown">
+                            <div class="user-info" @click="toggleUserDropdown" :class="{ 'active': userDropdownVisible }">
+                                <img :src="user.profilePhoto" alt="頭像" class="profile-photo">
+                                <span>{{ user.name }}</span>
+                                <i class="fas fa-chevron-down"></i> <!-- 下拉图标 -->
+                            </div>
+                            <transition name="fade">
+                                <div v-if="userDropdownVisible" class="dropdown-menu">
+                                    <a href="#" @click="logout" class="logout-link">
+                                        <i class="fas fa-sign-out-alt"></i> 登出
+                                    </a>
+                                </div>
+                            </transition>
+                        </div>
+                    </template>
+                    <template v-else>
+                        <a href="/Html/login.html" class="btn-link">登入</a>
+                        <a href="/Html/register.html" class="btn-link">註冊</a>
+                    </template>
+                </div>
+            </div>
+        </nav>
+        <div class="container-all">
+            <div class="container-left">
+                <nav id="sidebar">
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#"><i class="fa-regular fa-heart"></i> 再點一次</a>
+                        </li>
+                        <li>
+                            <a href="/Html/meal.html"><i class="fa-solid fa-burger"></i> 餐點點餐</a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" @click="toggleDropdown" id="dropdown">
+                                <i class="fa-regular fa-user"></i> 會員資料
+                            </a>
+                            <transition name="slide-fade">
+                                <ul v-if="dropdownVisible" id="sublist" class="list-unstyled dropdown-content">
+                                    <li><a href="member.html">修改資料</a></li>
+                                    <li><a href="changepassword.html">修改密碼</a></li>
+                                </ul>
+                            </transition>
+                        </li>
+                        <li>
+                            <a href="orderlist.html"><i class="fa-regular fa-rectangle-list"></i> 訂單列表</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa-regular fa-rectangle-list"></i> 點數明细</a>
+                        </li>
+                    </ul>
+                    <div class="contact-info">
+                        <h4>聯絡資訊</h4>
+                        <p><i class="fa-solid fa-phone"></i> 02-22765377</p>
+                        <p><i class="fa-solid fa-location-dot"></i> 新北市新莊區立信三街12巷65號1樓</p>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="container-right">
+                <div class="main-content">
+                    <div class="tab_head_container">
+                        <h2 class="custom-h2">訂單列表查詢</h2>
+                    </div>
+                    <div class="tab_filter_container">
+                        <input type="text" id="tab_filter_text" placeholder="關鍵字" />
+                        <button id="text_search_btn" class="active">查詢</button>
+                        <input type="text" id="datepicker" placeholder="選擇日期" />
+                        <button id="date_search_btn" class="active">查詢</button>
+                    </div>
+                    <div class="table">
+
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>訂單編號</th>
+                                    <th>下單時間</th>
+                                    <th>取餐時間</th>
+                                    <th>總金額</th>
+                                    <th>訂單狀態</th>
+                                    <th>明細</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                        <div class="footer">
+                            <div class="footer-left">
+                                <span></span>
+                            </div>
+                            <div class="index_buttons"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    dropdownVisible: false, // 控制会员资料下拉菜单的显示
+                    isLoggedIn: false, // 用来标识是否已登录
+                    user: {}, // 存储会员资料
+                    userDropdownVisible: false // 控制用户信息下拉菜单的显示
+                };
+            },
+            methods: {
+                toggleDropdown() {
+                    this.dropdownVisible = !this.dropdownVisible; // 切换会员资料的下拉菜单
+                },
+                toggleUserDropdown() {
+                    this.userDropdownVisible = !this.userDropdownVisible; // 切换用户信息的下拉菜单
+                },
+                // 登出
+                logout() {
+                    localStorage.removeItem('user'); // 移除用户信息
+                    this.isLoggedIn = false; // 标记为未登录
+                    window.location.reload(); // 重新加载页面，恢复为未登录状态
+                },
+                // 检查用户是否已登录
+                checkLoginStatus() {
+                    const userData = localStorage.getItem('user');
+                    if (userData) {
+                        this.user = JSON.parse(userData);
+                        this.isLoggedIn = true; // 用户已登录
+                    } else {
+                        this.isLoggedIn = false; // 用户未登录
+                    }
+                }
+            },
+            mounted() {
+                this.checkLoginStatus(); // 检查用户是否已登录
+                initializejQueryFunctions(); // 初始化 jQuery 功能
+            }
+        }).mount('#app');
+
+    </script>
+</body>
+</html>

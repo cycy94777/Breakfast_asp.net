@@ -1,0 +1,308 @@
+﻿/*************************************初始化********************************************/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container-all {
+    display: flex;
+    align-items: stretch;
+}
+
+.container-left {
+    background-color: white;
+}
+
+.container-right {
+    background-color: var(--main-bg-color);
+    width: 100%;
+    padding: 10px;
+    font-size: 22px;
+    font-weight: bolder;
+    color: #6e6e6e;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+:root {
+    --main-bg-color: rgb(238, 238, 238);
+    --primary-color: #ec8d40;
+    --btn-primary-color: #ea9359;
+    --btn-primary-hover-color: #dd6909;
+    --card-primary-hover-color: #fde9e1;
+    ;
+    --card-primary-border-color: rgb(232, 126, 77);
+    --price-text: #f0ae1f;
+    --special-text: #fa7618;
+    --primary-text: #6e6e6e;
+}
+/************************************上半部navbar******************************************/
+.navbar {
+    background-color: #f8f9fa; /* 背景颜色 */
+    padding: 10px 20px; /* 内边距 */
+    border-bottom: 2px solid #ddd; /* 底部边框 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: Arial, sans-serif; /* 字体样式 */
+}
+
+.container-fluid {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* logo和文本的样式 */
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+    .navbar-brand img {
+        margin-right: 10px;
+    }
+
+
+.text-part1 {
+    color: #f8a542; /* 文字颜色 */
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.text-part2 {
+    color: #e1bf12; /* 文字颜色 */
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 15px; /* 链接之间的间距 */
+}
+
+.btn-link {
+    padding: 8px 16px; /* 内边距 */
+    border-radius: 5px; /* 圆角 */
+    background-color: #ffffff; /* 背景色 */
+    color: var(--primary-text); /* 字体颜色 */
+    font-weight: bold; /* 字体加粗 */
+    text-decoration: none; /* 去掉下划线 */
+    border: 1px solid #ccc; /* 边框 */
+    transition: background-color 0.3s ease; /* 过渡效果 */
+}
+
+    .btn-link:hover {
+        background-color: var(--btn-primary-color); /* 悬停时背景色 */
+        color: white; /* 悬停时文字颜色 */
+    }
+
+/* 设置在小屏幕上的行为 */
+@media (max-width: 768px) {
+    .container-fluid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar-links {
+        margin-top: 10px;
+        flex-direction: column;
+    }
+
+    .btn-link {
+        margin-bottom: 10px;
+    }
+}
+/**********************************上半部個人資訊************************************/
+.user-info-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-color: #f4f4f4; /* 背景颜色 */
+    padding: 8px;
+    border-radius: 4px;
+    width: 150px;
+}
+
+    .user-info img {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .user-info span {
+        font-weight: bold;
+        margin-right: 30px;
+        color: var(--primary-text);
+    }
+
+    .user-info i {
+        font-size: 12px;
+        color: var(--primary-text);
+    }
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--card-primary-hover-color); /* 背景颜色 */
+    border-radius: 4px;
+    padding: 10px;
+    margin-top: 5px;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    width: 150px;
+}
+
+.logout-link {
+    display: flex;
+    align-items: center;
+    color: var(--btn-primary-hover-color); /* 登出按钮颜色 */
+    font-weight: bold;
+    text-decoration: none;
+}
+
+    .logout-link i {
+        margin-right: 5px;
+    }
+
+.user-info.active .dropdown-menu {
+    display: block;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 0.2s;
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+    opacity: 0;
+}
+/*************************************左半部navbar**************************************/
+
+#sidebar {
+    width: 250px; /* 根據需要設置選單寬度 */
+    background-color: #ffffff;
+    padding: 10px;
+    /* box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3); */
+    /*overflow-y: auto;*/ /* 使選單內容可滾動 */
+    position: relative;
+}
+
+    #sidebar ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        #sidebar ul li {
+            margin: 10px 0;
+            position: relative; /* 確保子菜單可以絕對定位 */
+        }
+
+            #sidebar ul li a {
+                color: #969696;
+                text-decoration: none;
+                font-weight: bolder;
+                font-size: 25px;
+                display: block;
+                padding: 10px;
+                border-radius: 12px;
+                border: 1px solid rgb(231, 231, 231); /* 初始邊框為透明 */
+                transition: background-color 0.3s ease, border-color 0.3s ease; /* 過渡效果 */
+            }
+
+                #sidebar ul li a:hover {
+                    background-color: var(--card-primary-hover-color); /* 選單項目懸停顏色 */
+                    border-color: var(--card-primary-border-color);
+                    color: rgb(235, 102, 41);
+                    border-radius: 12px;
+                    border-width: 2px; /* 悬停时边框宽度 */
+                }
+
+                /* 圖標懸停顏色 */
+                #sidebar ul li a i {
+                    color: #c7c7c7; /* 初始圖標顏色 */
+                    transition: color 0.3s ease; /* 過渡效果 */
+                }
+
+                #sidebar ul li a:hover i {
+                    color: rgb(235, 102, 41); /* 懸停時圖標顏色 */
+                }
+
+/* 下拉菜单 */
+.dropdown-content {
+    padding-left: 20px;
+    transition: max-height 0.3s ease;
+}
+
+    .dropdown-content a {
+        font-size: 16px;
+        color: #6c757d;
+        background-color: #fff;
+        padding: 8px 15px;
+        display: block;
+        border-radius: 5px;
+        margin-top: 5px;
+        border: 1px solid #ddd;
+    }
+
+        .dropdown-content a:hover {
+            background-color: var(--card-primary-border-color);
+            color: #fff;
+        }
+
+/* 控制子菜单展开时的过渡效果 */
+ul#sublist {
+    overflow: hidden;
+}
+
+/* 定义 transition 的效果 */
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+    transition: all 0.3s ease;
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+/*****************************************左半部navbar的連絡資訊****************************************/
+/* 調整 contact-info 區塊樣式 */
+.contact-info {
+    background-color: #ffffff; /* 背景色可以更改 */
+    border: 1px solid rgb(231, 231, 231);
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 180px;
+}
+
+    .contact-info h4 {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        text-align: center;
+        color: #8f8f8f; /* 確保文字顏色明顯 */
+    }
+
+    .contact-info p {
+        font-size: 14px;
+        margin: 5px 0;
+        color: #6c757d; /* 可以調整文字顏色 */
+    }
+
+    .contact-info i {
+        margin-right: 10px;
+        color: #c7c7c7; /* 圖標顏色 */
+    }

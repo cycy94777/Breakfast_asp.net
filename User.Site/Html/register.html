@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>佳佳早餐店前台註冊</title>
+    <link rel="stylesheet" href="/Content/css/register.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h2 class="fredoka-custom2">
+                <span class="text-part1">註冊帳號</span>
+                <img src="/Content/images/logo.png" alt="圖案" style="width: 20px; height: 20px" class="text-logo" />
+            </h2>
+            <div class="avatar-wrapper">
+                <div class="avatar-container" id="avatar-container">
+                    <img id="avatar" />
+                    <div class="overlay">
+                        <span class="plus-icon">+</span>
+                    </div>
+                </div>
+                <div class="avatar-label">大頭貼</div>
+            </div>
+            <form id="registerForm">
+                <div class="input-group2">
+                    <label for="name">姓名:</label>
+                    <input type="text" id="name" required aria-label="姓名"/>
+                </div>
+                <div class="input-group">
+                    <label for="account">帳號:</label>
+                    <input type="email" id="account" required />
+                </div>
+                <div class="input-group3">
+                    <label for="phone">電話:</label>
+                    <input type="tel" id="phone" required />
+                </div>
+                <div class="input-group4">
+                    <label for="password">密碼:</label>
+                    <input type="password" id="password" required />
+                </div>
+                <div class="input-group5">
+                    <label for="confirmPassword">確認密碼:</label>
+                    <input type="password" id="confirmPassword" required />
+                </div>
+                <input type="file" id="profilePhoto" accept="image/*" style="display: none;" />
+                <button type="submit" id="btn">註冊</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("avatar-container").addEventListener("click", function () {
+                const fileInput = document.getElementById("profilePhoto");
+                fileInput.click();
+                fileInput.onchange = function (event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            document.getElementById("avatar").src = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                };
+            });
+
+            document.getElementById("registerForm").addEventListener("submit", async function (event) {
+                event.preventDefault();
+
+                const name = document.getElementById("name").value;
+                const account = document.getElementById("account").value;
+                const phone = document.getElementById("phone").value;
+                const password = document.getElementById("password").value;
+                const confirmPassword = document.getElementById("confirmPassword").value;
+                const profilePhoto = document.getElementById("profilePhoto").files[0];
+
+                if (password !== confirmPassword) {
+                    Swal.fire("錯誤", "密碼不匹配", "error");
+                    return;
+                }
+
+                const formData = new FormData();
+                formData.append("name", name);
+                formData.append("account", account);
+                formData.append("phone", phone);
+                formData.append("password", password);
+                formData.append("profilePhoto", profilePhoto);
+
+                const response = await fetch('/api/MembersApi/Register', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    // 顯示註冊成功的提示框
+                    Swal.fire({
+                        title: "註冊成功",
+                        text: "請至您的信箱確認連結以啟動帳號",
+                        icon: "success",
+                        allowOutsideClick: false // 禁止外部點擊關閉
+                    }).then(() => {
+                        // 跳轉到 meal.html
+                        window.location.href = 'meal.html';
+                    });
+                } else {
+                    const errorMessage = await response.text();
+                    Swal.fire({
+                        title: "註冊失敗",
+                        text: errorMessage,
+                        icon: "error"
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

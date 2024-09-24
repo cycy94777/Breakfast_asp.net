@@ -1,0 +1,174 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    background-image: url(/Content/images/healthy-breakfast-table.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /* display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; */
+    overflow: hidden;
+}
+
+.fredoka-custom {
+    font-family: "Fredoka", sans-serif;
+    font-weight: 400; /* 設置為粗體，如果需要其他粗細可以設置為 400, 500 等 */
+    font-style: normal;
+    font-optical-sizing: auto;
+    font-variation-settings: "wdth" 100;
+    margin-bottom: 10px;
+    font-size: 56px;
+}
+
+.fredoka-custom2 {
+    font-family: Arial, Helvetica, sans-serif;
+    /* font-weight: 500; 設置為粗體，如果需要其他粗細可以設置為 400, 500 等 */
+    font-style: normal;
+    /* font-variation-settings: "wdth" 100; */
+    margin-top: 0;
+    font-size: 40px;
+}
+
+.text-part1 {
+    color: #f37c4c; /* 第一部分的顏色，例如橙色 */
+    font-weight: bold;
+}
+
+.text-part2 {
+    color: #efa141; /* 第二部分的顏色，例如綠色 */
+    font-weight: bolder;
+}
+
+.login-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+    margin-top: 300px; /* 向下移動 */
+    margin-left: 200px; /* 向右移動 */
+}
+
+.login-box {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5); /* 增加了模糊半徑 */
+    width: 300px;
+    text-align: center;
+}
+
+    .login-box h2 {
+        margin: 0 0 10px;
+        color: #f37c4c;
+        text-align: left;
+        font-size: 25px;
+        font-weight: bolder;
+    }
+
+.input-group {
+    position: relative;
+    margin-bottom: 35px;
+    margin-top: 50px;
+}
+
+.input-group2 {
+    position: relative;
+    margin-bottom: 50px;
+    margin-top: 20px;
+}
+
+.input-group input {
+    width: 250px;
+    padding: 10px;
+    padding-left: 40px;
+    border-radius: 8px;
+    border: 0px solid #a9a9a9;
+    font-size: 15px;
+    background-color: #e8e8e8; /* 設置背景顏色 */
+    color: #818181; /* 設置文字顏色 */
+}
+
+.input-group2 input {
+    width: 250px;
+    padding: 10px;
+    padding-left: 40px;
+    border-radius: 8px;
+    border: 0px solid #a9a9a9;
+    font-size: 15px;
+    background-color: #e8e8e8; /* 設置背景顏色 */
+    color: #4b4a4a; /* 設置文字顏色 */
+}
+
+    .input-group input:focus,
+    .input-group2 input:focus {
+        border-color: #c7462c; /* 聚焦狀態下的邊框顏色 */
+        box-shadow: 0 0 8px rgba(247, 113, 60, 0.5); /* 聚焦狀態下的陰影效果 */
+        outline: none; /* 去掉默認的聚焦輪廓 */
+    }
+
+.icon {
+    position: absolute;
+    top: 58%;
+    left: 10px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #a9a9a9;
+}
+
+.user-icon::before {
+    content: url(/Content/images/login.png);
+}
+
+.password-icon::before {
+    content: url(/Content/images/password.png);
+}
+
+.links {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+    .links a {
+        color: #f37c4c;
+        text-decoration: none;
+    }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+button {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 20px;
+    background: #f38e67;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+    button:hover {
+        background: linear-gradient(55deg, #f69e4b, #f37c4c);
+    }
+
+.input-group label,
+.input-group2 label {
+    position: absolute;
+    top: -30%;
+    left: 4px;
+    transform: translateY(-50%);
+    font-size: 13px;
+    color: #a9a9a9;
+    pointer-events: none;
+    transition: 0.2s ease all;
+}

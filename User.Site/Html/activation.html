@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>啟用帳號</title>
+    <link rel="stylesheet" href="/Content/css/style.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>啟用帳號</h1>
+        <p>正在啟用您的帳號...</p>
+    </div>
+
+    <script>
+        function activateAccount(memberId, confirmCode) {
+            fetch(`/api/MembersApi/ActiveRegister?memberId=${memberId}&confirmCode=${confirmCode}`)
+                .then(response => {
+                    if (response.ok) {
+                        // 若成功，重定向到啟用成功頁面
+                        window.location.href = 'activationSuccess.html';
+                    } else {
+                        return response.text().then(errorMessage => {
+                            alert('啟用失敗：' + errorMessage);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('錯誤:', error);
+                });
+        }
+
+        // 取得 memberId 和 confirmCode 並啟用帳號
+        const memberId = parseInt(new URLSearchParams(window.location.search).get('memberId'), 10); // 轉換為整數
+        const confirmCode = new URLSearchParams(window.location.search).get('confirmCode');
+        activateAccount(memberId, confirmCode);
+    </script>
+</body>
+</html>

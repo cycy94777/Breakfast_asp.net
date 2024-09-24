@@ -1,0 +1,767 @@
+﻿/*************************************初始化********************************************/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container-all {
+    display: flex;
+    align-items: stretch;
+}
+
+.container-right {
+    background-color: var(--main-bg-color);
+    width: 850px;
+    height: 2000px;
+    padding: 10px;
+    font-size: 25px;
+    font-weight: bolder;
+    color: #6e6e6e;
+    display: flex;
+    flex-direction: column;
+    /* gap: 20px; */
+}
+
+:root {
+    --main-bg-color: rgb(238, 238, 238);
+    --primary-color: #ec8d40;
+    --btn-primary-color: #ea9359;
+    --btn-primary-hover-color: #dd6909;
+    --card-primary-hover-color: #fde9e1;
+    ;
+    --card-primary-border-color: rgb(232, 126, 77);
+    --price-text: #f0ae1f;
+    --special-text: #fa7618;
+    --primary-text: #6e6e6e;
+}
+/************************************上半部navbar******************************************/
+.navbar {
+    background-color: #f8f9fa; /* 背景颜色 */
+    padding: 10px 20px; /* 内边距 */
+    border-bottom: 2px solid #ddd; /* 底部边框 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: Arial, sans-serif; /* 字体样式 */
+}
+
+.container-fluid {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* logo和文本的样式 */
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+    .navbar-brand img {
+        margin-right: 10px;
+    }
+
+
+.text-part1 {
+    color: #f8a542; /* 文字颜色 */
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.text-part2 {
+    color: #e1bf12; /* 文字颜色 */
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 15px; /* 链接之间的间距 */
+}
+
+.btn-link {
+    padding: 8px 16px; /* 内边距 */
+    border-radius: 5px; /* 圆角 */
+    background-color: #ffffff; /* 背景色 */
+    color: var(--primary-text); /* 字体颜色 */
+    font-weight: bold; /* 字体加粗 */
+    text-decoration: none; /* 去掉下划线 */
+    border: 1px solid #ccc; /* 边框 */
+    transition: background-color 0.3s ease; /* 过渡效果 */
+}
+
+    .btn-link:hover {
+        background-color: var(--btn-primary-color); /* 悬停时背景色 */
+        color: white; /* 悬停时文字颜色 */
+    }
+
+/* 设置在小屏幕上的行为 */
+@media (max-width: 768px) {
+    .container-fluid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar-links {
+        margin-top: 10px;
+        flex-direction: column;
+    }
+
+    .btn-link {
+        margin-bottom: 10px;
+    }
+}
+/**********************************上半部個人資訊************************************/
+.user-info-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background-color: #f4f4f4; /* 背景颜色 */
+    padding: 8px;
+    border-radius: 4px;
+    width: 150px;
+}
+
+    .user-info img {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .user-info span {
+        font-weight: bold;
+        margin-right: 30px;
+        color: var(--primary-text);
+    }
+
+    .user-info i {
+        font-size: 12px;
+        color: var(--primary-text);
+    }
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--card-primary-hover-color); /* 背景颜色 */
+    border-radius: 4px;
+    padding: 10px;
+    margin-top: 5px;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+    width: 150px;
+}
+
+.logout-link {
+    display: flex;
+    align-items: center;
+    color: var(--btn-primary-hover-color); /* 登出按钮颜色 */
+    font-weight: bold;
+    text-decoration: none;
+}
+
+    .logout-link i {
+        margin-right: 5px;
+    }
+
+.user-info.active .dropdown-menu {
+    display: block;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 0.2s;
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+    opacity: 0;
+}
+/*************************************左半部navbar**************************************/
+
+#sidebar {
+    width: 250px; /* 根據需要設置選單寬度 */
+    background-color: #ffffff;
+    height: 100vh; /* 讓選單填滿整個視窗高度 */
+    padding: 10px;
+    /* box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3); */
+
+    position: relative;
+}
+
+    #sidebar ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        #sidebar ul li {
+            margin: 10px 0;
+            position: relative; /* 確保子菜單可以絕對定位 */
+        }
+
+            #sidebar ul li a {
+                color: #969696;
+                text-decoration: none;
+                font-weight: bolder;
+                font-size: 25px;
+                display: block;
+                padding: 10px;
+                border-radius: 12px;
+                border: 1px solid rgb(231, 231, 231); /* 初始邊框為透明 */
+                transition: background-color 0.3s ease, border-color 0.3s ease; /* 過渡效果 */
+            }
+
+                #sidebar ul li a:hover {
+                    background-color: var(--card-primary-hover-color); /* 選單項目懸停顏色 */
+                    border-color: var(--card-primary-border-color);
+                    color: rgb(235, 102, 41);
+                    border-radius: 12px;
+                    border-width: 2px; /* 悬停时边框宽度 */
+                }
+
+                /* 圖標懸停顏色 */
+                #sidebar ul li a i {
+                    color: #c7c7c7; /* 初始圖標顏色 */
+                    transition: color 0.3s ease; /* 過渡效果 */
+                }
+
+                #sidebar ul li a:hover i {
+                    color: rgb(235, 102, 41); /* 懸停時圖標顏色 */
+                }
+
+/* 下拉菜单 */
+.dropdown-content {
+    padding-left: 20px;
+    transition: max-height 0.3s ease;
+}
+
+    .dropdown-content a {
+        font-size: 16px;
+        color: #6c757d;
+        background-color: #fff;
+        padding: 8px 15px;
+        display: block;
+        border-radius: 5px;
+        margin-top: 5px;
+        border: 1px solid #ddd;
+    }
+
+        .dropdown-content a:hover {
+            background-color: var(--card-primary-border-color);
+            color: #fff;
+        }
+
+/* 控制子菜单展开时的过渡效果 */
+ul#sublist {
+    overflow: hidden;
+}
+
+/* 定义 transition 的效果 */
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+    transition: all 0.3s ease;
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+/*****************************************左半部navbar的連絡資訊****************************************/
+/* 調整 contact-info 區塊樣式 */
+.contact-info {
+    background-color: #ffffff; /* 背景色可以更改 */
+    border: 1px solid rgb(231, 231, 231);
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 180px;
+}
+
+    .contact-info h4 {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        text-align: center;
+        color: #8f8f8f; /* 確保文字顏色明顯 */
+    }
+
+    .contact-info p {
+        font-size: 14px;
+        margin: 5px 0;
+        color: #6c757d; /* 可以調整文字顏色 */
+    }
+
+    .contact-info i {
+        margin-right: 10px;
+        color: #c7c7c7; /* 圖標顏色 */
+    }
+
+/**************************************** 商品類別卡片*****************************************/
+
+
+#cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    align-items: center;
+}
+
+.card {
+    width: 148px;
+    height: 60px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    display: flex;
+}
+
+    .card:hover {
+        transform: scale(1.05);
+        border-color: var(--card-primary-border-color);
+        border-width: 2px;
+        background-color: var(--card-primary-hover-color);
+    }
+
+.card-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    margin-right: 4px;
+    padding: 5px;
+}
+
+.card-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    /* margin-bottom: 10px; */
+    text-align: center;
+}
+
+/***************************************商品類別下拉選單***************************************/
+.dropdown-container {
+    margin: 5px 0; /* 上下間距 */
+    text-align: center;
+}
+
+.select-container {
+    width: 97%;
+    padding: 5px;
+    /* margin: 10px; */
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+select:hover {
+    border-color: var(--card-primary-border-color); /* 選單在滑過時的邊框顏色 */
+    /* background-color: var(--card-primary-hover-color); */
+}
+
+/***************************************商品卡片************************************************/
+#customCardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px; /* 卡片之间的间距 */
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+}
+
+.custom-card {
+    border: 1px solid #ddd; /* 卡片边框 */
+    border-radius: 8px; /* 卡片边角圆润 */
+    overflow: hidden; /* 避免内部元素超出边框 */
+    width: 240px; /* 卡片宽度 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0.1, 0.1); /* 卡片阴影 */
+    background-color: #fff; /* 卡片背景颜色 */
+    display: flex; /* 启用 Flexbox 布局 */
+    flex-direction: column; /* 垂直方向布局 */
+    align-items: center; /* 水平居中 */
+    justify-content: center; /* 垂直居中 */
+    text-align: center; /* 文本居中对齐 */
+    /* margin-left: 10PX; */
+}
+
+.custom-card-img {
+    width: 160px; /* 图片宽度不超过容器宽度 */
+    height: 160px; /* 图片高度不超过200px */
+    /*width: auto;*/ /* 宽度自动调整 */
+    /*height: auto;*/ /* 高度自动调整 */
+    display: block; /* 去掉下方的空白 */
+    background-color: rgb(243, 243, 243);
+    margin-top: 40px;
+    border-radius: 8px;
+}
+
+.custom-card-body {
+    padding: 15px; /* 内边距 */
+}
+
+.custom-card-title {
+    font-size: 25px; /* 标题字体大小 */
+    margin: 0; /* 去掉标题的外边距 */
+    color: #555;
+    font-weight: bolder;
+    margin-bottom: 5px;
+}
+
+.custom-card-price {
+    font-size: 18px; /* 文字字体大小 */
+    color: var(--price-text); /* 文字颜色 */
+    font-weight: bolder;
+    margin-bottom: 10px;
+}
+
+.custom-btn {
+    display: inline-block;
+    padding: 8px 20px; /* 按钮内边距 */
+    font-size: 1rem; /* 按钮字体大小 */
+    color: #fff; /* 按钮文字颜色 */
+    background-color: var(--btn-primary-color); /* 按钮背景颜色 */
+    text-align: center; /* 按钮文字居中 */
+    text-decoration: none; /* 去掉按钮下划线 */
+    border-radius: 36px; /* 按钮边角圆润 */
+    width: 150px;
+}
+
+    .custom-btn:hover {
+        background-color: var(--btn-primary-hover-color); /* 鼠标悬停时按钮背景颜色 */
+    }
+
+.custom-card:hover {
+    background-color: #ffffff;
+    border-color: var(--card-primary-border-color);
+    border-width: 2px; /* 悬停时边框宽度 */
+}
+
+/*********************************************商品加選Modal********************************************** */
+.modal {
+    font-family: Arial, Helvetica, sans-serif;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+    .modal.show {
+        display: flex;
+    }
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    max-height: 90vh;
+}
+
+#modal-image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    margin-bottom: 5px;
+}
+
+/* 标题与价格样式 */
+#modal-title {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 10px !important;
+    margin-bottom: 5px;
+}
+
+#modal-price {
+    color: var(--price-text);
+    margin: 10px !important;
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* 选项分类标题样式 */
+.modal-options-categories p {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* 选项样式 */
+.modal-options label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.modal-options input {
+    margin-right: 10px;
+}
+
+/* 加选项多时添加滚动条 */
+.modal-options {
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    padding-right: 10px;
+}
+
+    .modal-options::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .modal-options::-webkit-scrollbar-thumb {
+        background-color: var(--btn-primary-color);
+        border-radius: 10px;
+    }
+
+/* "加入购物车" 按钮样式 */
+.add-to-cart-btn {
+    background-color: var(--btn-primary-color);
+    color: white;
+    font-size: 18px;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+    .add-to-cart-btn:hover {
+        background-color: var(--btn-primary-hover-color);
+    }
+
+/* 调整复选框和单选框的布局 */
+.checkbox-options, .radio-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #9c9c9c;
+    cursor: pointer;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+/* *****************************************訂單*************************************************/
+.order-section {
+    background-color: #ffffff;
+    border-radius: 8px;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+    padding: 10px;
+    width: 430px;
+    margin: 0 auto;
+}
+
+/* 訂單區標題樣式 */
+.order-header {
+    background-color: #d1f0de;
+    padding: 16px;
+    border-radius: 0px 0px 0 0;
+    text-align: center;
+}
+
+.header-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #509b73;
+    margin: 0;
+}
+
+.order-body {
+    padding-top: 20px;
+}
+
+
+/* 商品及加選項目區域樣式 */
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+    .cart-item > div {
+        flex: 2;
+    }
+
+    /* 商品名稱靠左，加選項目同一行並用頓號分隔 */
+    .cart-item p {
+        font-weight: bold;
+        color: var(--special-text);
+        margin: 0px !important;
+        font-size: 18px;
+    }
+
+.add-ons {
+    font-size: 14px;
+    color: #666;
+}
+
+    .add-ons ul {
+        list-style: none;
+        padding: 0;
+    }
+
+        .add-ons ul li {
+            display: inline;
+        }
+
+            .add-ons ul li::after {
+                content: '、'; /* 使用頓號分隔加選項目 */
+            }
+
+            .add-ons ul li:last-child::after {
+                content: ''; /* 移除最後一個頓號 */
+            }
+
+/* 商品價格單獨一欄，靠右對齊 */
+.total-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--price-text);
+    text-align: center;
+    min-width: 60px;
+}
+
+/* 數量控制區域 */
+.quantity-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10px;
+}
+
+    .quantity-control input {
+        width: 30px; /* 數量輸入框寬度 */
+        text-align: center;
+        border: 1px solid #e3e3e3;
+        border-radius: 4px;
+        padding: 5px;
+        font-size: 14px;
+    }
+
+    .quantity-control button {
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        padding: 5px 10px;
+        cursor: pointer;
+        font-size: 14px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+        .quantity-control button:hover {
+            background-color: #e0e0e0;
+        }
+
+/* 刪除按鈕樣式 */
+.remove-btn {
+    color: #cacaca;
+    font-size: 15px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: color 0.3s ease;
+}
+
+    .remove-btn:hover {
+        color: #b8b8b8;
+    }
+
+/* 表單輸入框樣式 */
+.form-group {
+    margin-bottom: 16px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* 各類輸入框獨立控制大小 */
+select#time-select {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #e3e3e3;
+    border-radius: 5px;
+}
+
+input#points-display,
+input#discount-points,
+input#total-amount,
+input#points-earned {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #e3e3e3;
+    border-radius: 5px;
+}
+
+/* 折抵點數框的自定義大小 */
+input#discount-points {
+    width: 100%; /* 根據需求調整寬度 */
+}
+
+/* 按鈕樣式 */
+.submit-button {
+    background-color: #47b577;
+    border: none;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .submit-button:hover {
+        background-color: #3b9264;
+    }

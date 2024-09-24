@@ -1,0 +1,186 @@
+﻿
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #ffffff;
+    margin: 15px;
+    border-radius: 8px;
+    height: 85%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* 添加的阴影效果 */
+}
+
+
+
+:root {
+    --main-bg-color: rgb(238, 238, 238);
+    --primary-color: #ec8d40;
+    --btn-primary-color: #ea9359;
+    --btn-primary-hover-color: #dd6909;
+    --card-primary-hover-color: #fde9e1;
+    ;
+    --card-primary-border-color: rgb(232, 126, 77);
+    --price-text: #f0ae1f;
+    --special-text: #fa7618;
+    --primary-text: #6e6e6e;
+}
+/*******************************************************************************************/
+.form-container {
+    display: flex;
+    align-items: flex-start;
+    /* 確保圖片和表單內容從上方開始對齊 */
+    margin-top: 25px;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #ffffff;
+    margin: 15px;
+    border-radius: 8px;
+    height: 85%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* 添加的阴影效果 */
+}
+
+.section {
+    display: none;
+}
+
+    .section.active {
+        display: block;
+    }
+
+.profile {
+    margin-left: 20px;
+    /* 圖片和表單之間的間距 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.profile-info {
+    margin-top: 10px;
+}
+
+    .profile-info p {
+        margin: 0;
+        font-size: 14px;
+        color: var(--primary-text);
+    }
+
+    .profile-info .name {
+        font-size: 20px;
+        /* 放大字體 */
+        font-weight: bold;
+        /* 加粗字體 */
+        font-family: "Arial", sans-serif;
+        /* 更改字型 */
+        color: var(--primary-text);
+        /* 字體顏色 */
+    }
+
+.profile img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+form {
+    flex-grow: 1;
+    /* 讓表單內容佔據剩餘的寬度 */
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+    form label {
+        display: block;
+        margin-bottom: 10px;
+        color: var(--primary-text);
+    }
+
+    form input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    form button {
+        width: 100%;
+        padding: 10px;
+        background-color: var(--btn-primary-color);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: large;
+        font-weight: bolder;
+    }
+
+        form button:hover {
+            background-color: var(--btn-primary-hover-color);
+        }
+
+.avatar-container {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    margin: 20px auto;
+    border-radius: 50%;
+    /* overflow: hidden; */
+    border: 3px solid #c9c9c9;
+}
+
+    .avatar-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        z-index: 1;
+    }
+
+.edit-icon {
+    position: absolute;
+    bottom: 2px;
+    right: 10px;
+    background-color: var(--btn-primary-color);
+    color: white;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    z-index: 2;
+    height: 44px;
+}
+
+
+
+    .edit-icon:hover {
+        background-color: var(--btn-primary-hover-color);
+    }
+
+.avatar-label {
+    font-size: 14px;
+    color: #9f9f9f;
+    margin-top: -15px;
+    /* 與圓圈之間的距離 */
+}
+
+.container {
+    margin-left: 40px; /* 調整這個值讓 form 向右移動 */
+}
+
+
+    .container input {
+        /*width: 400px;  可以根據需求調整大小 */
+        padding: 8px; /* 設置內邊距讓框看起來更好 */
+        border-radius: 10px;
+    }
+
+/* 可選：針對特定的 input 元素單獨設置寬度 */
+#name, #email, #phone {
+    /* width: 400px; 單獨設定每個 input 的寬度 */
+    height: 50px;
+    font-size: large;
+}
