@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>佳佳早餐首頁</title>
 
-    <link rel="stylesheet" href="/Content/layout.css" />
-    <link rel="stylesheet" href="/Content/orderlist.css" />
+    
+    <link rel="stylesheet" href="/Content/css/layout.css" />
+    <link rel="stylesheet" href="/Content/css/orderlist.css"/>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
 
     <script src="https://unpkg.com/vue@3.5.3/dist/vue.global.js"></script>
@@ -23,7 +24,7 @@
         <nav class="navbar">
 
             <div class="container-fluid">
-                <a class="navbar-brand" href="/html/html/meal.html">
+                <a class="navbar-brand" href="meal.html">
                     <img src="/Content/images/logo.png" alt="Logo" width="32" height="32" class="d-inline-block align-text-top">
                     <span class="text-part1">佳佳</span><span class="text-part2">早餐店</span>
                 </a>
@@ -38,7 +39,7 @@
                             </div>
                             <transition name="fade">
                                 <div v-if="userDropdownVisible" class="dropdown-menu">
-                                    <a href="#" @click="logout" class="logout-link">
+                                    <a href="login.html" @click="logout" class="logout-link">
                                         <i class="fas fa-sign-out-alt"></i> 登出
                                     </a>
                                 </div>
@@ -74,10 +75,10 @@
                             </transition>
                         </li>
                         <li>
-                            <a href="orderlist.html"><i class="fa-regular fa-rectangle-list"></i> 訂單列表</a>
+                            <a href="javascript:void(0)" @click="checkMemberStatus('/Html/orderlist.html')"><i class="fa-regular fa-rectangle-list"></i> 訂單列表</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa-regular fa-rectangle-list"></i> 點數明细</a>
+                            <a href="javascript:void(0)" @click="checkMemberStatus('/Html/pointslist.html')"><i class="fa-regular fa-rectangle-list"></i> 點數明細</a>
                         </li>
                     </ul>
                     <div class="contact-info">
@@ -149,9 +150,18 @@
                 },
                 // 登出
                 logout() {
-                    localStorage.removeItem('user'); // 移除用户信息
-                    this.isLoggedIn = false; // 标记为未登录
-                    window.location.reload(); // 重新加载页面，恢复为未登录状态
+                    $.ajax({
+                        url: '/api/MembersApi/Logout', //登出的 API 網址
+                        type: 'POST',
+                        success: (response) => {
+                            localStorage.removeItem('user');   // 移除本地用戶信息
+                            this.isLoggedIn = false;           // 標記為未登錄
+                            //window.location.reload();          // 重新加載頁面
+                        },
+                        error: (err) => {
+                            console.error("登出失敗", err);
+                        }
+                    });
                 },
                 // 检查用户是否已登录
                 checkLoginStatus() {
@@ -159,14 +169,58 @@
                     if (userData) {
                         this.user = JSON.parse(userData);
                         this.isLoggedIn = true; // 用户已登录
+                        this.id = this.user.id;
                     } else {
                         this.isLoggedIn = false; // 用户未登录
                     }
-                }
+                },
+                checkMemberDropdown() {
+                    if (!this.user.id) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '尚未登入',
+                            text: '此為會員專區,請先登入會員',
+                            customClass: {
+                                confirmButton: 'custom-swal-button'  // 自定義按鈕的 class
+                            }
+                        }).then(() => {
+                            // 跳轉到 login.html
+                            window.location.href = 'login.html';
+                        });
+
+                        return;
+                    }
+                    else {
+                        // 若已登入，則展開/收起子選單
+                        this.toggleDropdown();
+                    }
+
+                },
+                checkMemberStatus(targetUrl) {
+                    if (!this.user.id) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '尚未登入',
+                            text: '此為會員限定專區,請先登入會員',
+                            customClass: {
+                                confirmButton: 'custom-swal-button'  // 自定義按鈕的 class
+                            }
+                        }).then(() => {
+                            // 跳轉到 login.html
+                            window.location.href = 'login.html';
+                        });
+
+                        return;
+                    }
+                    else {
+                        // 如果已登入，直接跳轉到目標頁面
+                        window.location.href = targetUrl;
+                    }
+                },
             },
             mounted() {
                 this.checkLoginStatus(); // 检查用户是否已登录
-                initializejQueryFunctions(); // 初始化 jQuery 功能
+                initializejQueryFunctions(this.user.id); // 初始化 jQuery 功能
             }
         }).mount('#app');
 

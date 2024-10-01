@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -9,6 +10,8 @@ namespace User.Site
     {
         public static void Register(HttpConfiguration config)
         {
+            //設定 JSON 序列化使屬性名稱為駝峰式命名
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             // Web API 設定和服務
 
             // Web API 路由

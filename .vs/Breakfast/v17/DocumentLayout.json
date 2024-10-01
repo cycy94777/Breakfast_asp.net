@@ -1,62 +1,38 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\",
+  "WorkspaceRootPath": "C:\\Users\\user\\Desktop\\Breakfast1001\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\breakfastordersystem.site\\models\\services\\memberservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|solutionrelative:breakfastordersystem.site\\models\\services\\memberservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E76FF470-37E0-4C1B-857C-5F812D1EE756}|User.Site\\User.Site.csproj|c:\\users\\user\\desktop\\breakfast1001\\user.site\\html\\meal.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E76FF470-37E0-4C1B-857C-5F812D1EE756}|User.Site\\User.Site.csproj|solutionrelative:user.site\\html\\meal.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|c:\\users\\chris\\onedrive\\desktop\\breakfast0919\\breakfastordersystem.site\\views\\member\\memberdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|solutionrelative:breakfastordersystem.site\\views\\member\\memberdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{E76FF470-37E0-4C1B-857C-5F812D1EE756}|User.Site\\User.Site.csproj|c:\\users\\user\\desktop\\breakfast1001\\user.site\\content\\css\\pointslist.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{E76FF470-37E0-4C1B-857C-5F812D1EE756}|User.Site\\User.Site.csproj|solutionrelative:user.site\\content\\css\\pointslist.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\breakfastordersystem.site\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|solutionrelative:breakfastordersystem.site\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+      "AbsoluteMoniker": "D:0:0:{E76FF470-37E0-4C1B-857C-5F812D1EE756}|User.Site\\User.Site.csproj|C:\\Users\\user\\Desktop\\Breakfast1001\\user.site\\html\\resetpassword.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E76FF470-37E0-4C1B-857C-5F812D1EE756}|User.Site\\User.Site.csproj|solutionrelative:user.site\\html\\resetpassword.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\breakfastordersystem.site\\models\\viewmodels\\memberdetailvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|solutionrelative:breakfastordersystem.site\\models\\viewmodels\\memberdetailvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E76FF470-37E0-4C1B-857C-5F812D1EE756}|User.Site\\User.Site.csproj|c:\\users\\user\\desktop\\breakfast1001\\user.site\\html\\login.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E76FF470-37E0-4C1B-857C-5F812D1EE756}|User.Site\\User.Site.csproj|solutionrelative:user.site\\html\\login.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\breakfastordersystem.site\\views\\member\\blacklist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|solutionrelative:breakfastordersystem.site\\views\\member\\blacklist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{E76FF470-37E0-4C1B-857C-5F812D1EE756}|User.Site\\User.Site.csproj|C:\\Users\\user\\Desktop\\Breakfast1001\\user.site\\models\\viewmodels\\resetpasswordvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E76FF470-37E0-4C1B-857C-5F812D1EE756}|User.Site\\User.Site.csproj|solutionrelative:user.site\\models\\viewmodels\\resetpasswordvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\breakfastordersystem.site\\models\\repositories\\memberrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|solutionrelative:breakfastordersystem.site\\models\\repositories\\memberrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E76FF470-37E0-4C1B-857C-5F812D1EE756}|User.Site\\User.Site.csproj|C:\\Users\\user\\Desktop\\Breakfast1001\\user.site\\controllers\\apis\\resetpasswordcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E76FF470-37E0-4C1B-857C-5F812D1EE756}|User.Site\\User.Site.csproj|solutionrelative:user.site\\controllers\\apis\\resetpasswordcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\breakfastordersystem.site\\models\\efmodels\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|solutionrelative:breakfastordersystem.site\\models\\efmodels\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E76FF470-37E0-4C1B-857C-5F812D1EE756}|User.Site\\User.Site.csproj|C:\\Users\\user\\Desktop\\Breakfast1001\\user.site\\controllers\\apis\\forgotpasswordcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E76FF470-37E0-4C1B-857C-5F812D1EE756}|User.Site\\User.Site.csproj|solutionrelative:user.site\\controllers\\apis\\forgotpasswordcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\breakfastordersystem.site\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|solutionrelative:breakfastordersystem.site\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\breakfastordersystem.site\\controllers\\membercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|solutionrelative:breakfastordersystem.site\\controllers\\membercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\breakfastordersystem.site\\views\\member\\view.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|solutionrelative:breakfastordersystem.site\\views\\member\\view.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\breakfastordersystem.site\\scripts\\maincontent\\blacklist.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|solutionrelative:breakfastordersystem.site\\scripts\\maincontent\\blacklist.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\breakfastordersystem.site\\content\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|solutionrelative:breakfastordersystem.site\\content\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\breakfastordersystem.site\\scripts\\script.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{7126A87E-1306-4846-B2FB-A3D41A50A5B0}|BreakfastOrderSystem.Site\\BreakfastOrderSystem.Site.csproj|solutionrelative:breakfastordersystem.site\\scripts\\script.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0013635D-66F4-4DD2-8A3F-8705FAADD161}|Breakfast.Site\\Breakfast.Site.csproj|C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\breakfast.site\\models\\viewmodels\\memberdetailvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0013635D-66F4-4DD2-8A3F-8705FAADD161}|Breakfast.Site\\Breakfast.Site.csproj|solutionrelative:breakfast.site\\models\\viewmodels\\memberdetailvm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E76FF470-37E0-4C1B-857C-5F812D1EE756}|User.Site\\User.Site.csproj|C:\\Users\\user\\Desktop\\Breakfast1001\\user.site\\content\\css\\loginstyles.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{E76FF470-37E0-4C1B-857C-5F812D1EE756}|User.Site\\User.Site.csproj|solutionrelative:user.site\\content\\css\\loginstyles.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -65,177 +41,113 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 200,
+          "DockedWidth": 369,
           "SelectedChildIndex": 1,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "pointslist.css",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Breakfast1001\\User.Site\\Content\\css\\pointslist.css",
+              "RelativeDocumentMoniker": "User.Site\\Content\\css\\pointslist.css",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Breakfast1001\\User.Site\\Content\\css\\pointslist.css",
+              "RelativeToolTip": "User.Site\\Content\\css\\pointslist.css",
+              "ViewState": "AgIAANEAAAAAAAAAAAAAADEBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-10-01T08:29:45.919Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "MemberService.cs",
-              "DocumentMoniker": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Models\\Services\\MemberService.cs",
-              "RelativeDocumentMoniker": "BreakfastOrderSystem.Site\\Models\\Services\\MemberService.cs",
-              "ToolTip": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Models\\Services\\MemberService.cs",
-              "RelativeToolTip": "BreakfastOrderSystem.Site\\Models\\Services\\MemberService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-18T13:03:16.749Z",
+              "Title": "meal.html",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Breakfast1001\\User.Site\\Html\\meal.html",
+              "RelativeDocumentMoniker": "User.Site\\Html\\meal.html",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Breakfast1001\\User.Site\\Html\\meal.html",
+              "RelativeToolTip": "User.Site\\Html\\meal.html",
+              "ViewState": "AgIAAPIBAAAAAAAAAAAkwAICAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-10-01T07:46:48.988Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "script.js",
-              "DocumentMoniker": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Scripts\\script.js",
-              "RelativeDocumentMoniker": "BreakfastOrderSystem.Site\\Scripts\\script.js",
-              "ToolTip": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Scripts\\script.js",
-              "RelativeToolTip": "BreakfastOrderSystem.Site\\Scripts\\script.js",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-09-18T12:12:58.483Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "BlackList.cshtml",
-              "DocumentMoniker": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Views\\Member\\BlackList.cshtml",
-              "RelativeDocumentMoniker": "BreakfastOrderSystem.Site\\Views\\Member\\BlackList.cshtml",
-              "ToolTip": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Views\\Member\\BlackList.cshtml",
-              "RelativeToolTip": "BreakfastOrderSystem.Site\\Views\\Member\\BlackList.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAGAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-09-18T12:49:59.213Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MemberDetails.cshtml",
-              "DocumentMoniker": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Views\\Member\\MemberDetails.cshtml",
-              "RelativeDocumentMoniker": "BreakfastOrderSystem.Site\\Views\\Member\\MemberDetails.cshtml",
-              "ToolTip": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Views\\Member\\MemberDetails.cshtml",
-              "RelativeToolTip": "BreakfastOrderSystem.Site\\Views\\Member\\MemberDetails.cshtml",
-              "ViewState": "AQIAAJ4AAAAAAAAAAAAAAKEAAAAzAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-09-18T11:40:59.974Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "style.css",
-              "DocumentMoniker": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Content\\style.css",
-              "RelativeDocumentMoniker": "BreakfastOrderSystem.Site\\Content\\style.css",
-              "ToolTip": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Content\\style.css",
-              "RelativeToolTip": "BreakfastOrderSystem.Site\\Content\\style.css",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2024-09-18T15:06:21.891Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "AppDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Models\\EFModels\\AppDbContext.cs",
-              "RelativeDocumentMoniker": "BreakfastOrderSystem.Site\\Models\\EFModels\\AppDbContext.cs",
-              "ToolTip": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Models\\EFModels\\AppDbContext.cs",
-              "RelativeToolTip": "BreakfastOrderSystem.Site\\Models\\EFModels\\AppDbContext.cs",
-              "ViewState": "AQIAAAgAAAAAAAAAAAAIwAAAAAAAAAAA",
+              "Title": "ResetPasswordVm.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Breakfast1001\\User.Site\\Models\\ViewModels\\ResetPasswordVm.cs",
+              "RelativeDocumentMoniker": "User.Site\\Models\\ViewModels\\ResetPasswordVm.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Breakfast1001\\User.Site\\Models\\ViewModels\\ResetPasswordVm.cs",
+              "RelativeToolTip": "User.Site\\Models\\ViewModels\\ResetPasswordVm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-19T14:34:29.94Z"
+              "WhenOpened": "2024-10-01T07:25:20.651Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Web.config",
-              "DocumentMoniker": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Web.config",
-              "RelativeDocumentMoniker": "BreakfastOrderSystem.Site\\Web.config",
-              "ToolTip": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Web.config",
-              "RelativeToolTip": "BreakfastOrderSystem.Site\\Web.config",
-              "ViewState": "AQIAAE4AAAAAAAAAAAAAAFEAAABwAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2024-09-19T01:09:01.554Z",
-              "EditorCaption": ""
+              "Title": "resetPassword.html",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Breakfast1001\\User.Site\\Html\\resetPassword.html",
+              "RelativeDocumentMoniker": "User.Site\\Html\\resetPassword.html",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Breakfast1001\\User.Site\\Html\\resetPassword.html",
+              "RelativeToolTip": "User.Site\\Html\\resetPassword.html",
+              "ViewState": "AgIAAL0AAAAAAAAAAAAAAAYAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-10-01T06:37:40.51Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 18,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ResetPasswordController.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Breakfast1001\\User.Site\\Controllers\\Apis\\ResetPasswordController.cs",
+              "RelativeDocumentMoniker": "User.Site\\Controllers\\Apis\\ResetPasswordController.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Breakfast1001\\User.Site\\Controllers\\Apis\\ResetPasswordController.cs",
+              "RelativeToolTip": "User.Site\\Controllers\\Apis\\ResetPasswordController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAABPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-01T07:26:21.337Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ForgotPasswordController.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Breakfast1001\\User.Site\\Controllers\\Apis\\ForgotPasswordController.cs",
+              "RelativeDocumentMoniker": "User.Site\\Controllers\\Apis\\ForgotPasswordController.cs",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Breakfast1001\\User.Site\\Controllers\\Apis\\ForgotPasswordController.cs",
+              "RelativeToolTip": "User.Site\\Controllers\\Apis\\ForgotPasswordController.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAYwDAAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-01T07:09:19.372Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "MemberDetailVm.cs",
-              "DocumentMoniker": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Models\\ViewModels\\MemberDetailVm.cs",
-              "RelativeDocumentMoniker": "BreakfastOrderSystem.Site\\Models\\ViewModels\\MemberDetailVm.cs",
-              "ToolTip": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Models\\ViewModels\\MemberDetailVm.cs",
-              "RelativeToolTip": "BreakfastOrderSystem.Site\\Models\\ViewModels\\MemberDetailVm.cs",
-              "ViewState": "AQIAAAoAAAAAAAAAAAAYwBQAAAAYAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-18T11:35:57.552Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "MemberRepository.cs",
-              "DocumentMoniker": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Models\\Repositories\\MemberRepository.cs",
-              "RelativeDocumentMoniker": "BreakfastOrderSystem.Site\\Models\\Repositories\\MemberRepository.cs",
-              "ToolTip": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Models\\Repositories\\MemberRepository.cs",
-              "RelativeToolTip": "BreakfastOrderSystem.Site\\Models\\Repositories\\MemberRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-18T13:04:36.056Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "View.cshtml",
-              "DocumentMoniker": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Views\\Member\\View.cshtml",
-              "RelativeDocumentMoniker": "BreakfastOrderSystem.Site\\Views\\Member\\View.cshtml",
-              "ToolTip": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Views\\Member\\View.cshtml",
-              "RelativeToolTip": "BreakfastOrderSystem.Site\\Views\\Member\\View.cshtml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-09-19T08:13:26.967Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "MemberController.cs",
-              "DocumentMoniker": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Controllers\\MemberController.cs",
-              "RelativeDocumentMoniker": "BreakfastOrderSystem.Site\\Controllers\\MemberController.cs",
-              "ToolTip": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Controllers\\MemberController.cs",
-              "RelativeToolTip": "BreakfastOrderSystem.Site\\Controllers\\MemberController.cs",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-18T11:33:27.317Z"
+              "Title": "login.html",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Breakfast1001\\User.Site\\Html\\login.html",
+              "RelativeDocumentMoniker": "User.Site\\Html\\login.html",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Breakfast1001\\User.Site\\Html\\login.html",
+              "RelativeToolTip": "User.Site\\Html\\login.html",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2024-10-01T06:40:22.268Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "BreakfastOrderSystem.Site\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "BreakfastOrderSystem.Site\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AQIAACQAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-09-19T08:32:32.368Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "blacklist.js",
-              "DocumentMoniker": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Scripts\\MainContent\\blacklist.js",
-              "RelativeDocumentMoniker": "BreakfastOrderSystem.Site\\Scripts\\MainContent\\blacklist.js",
-              "ToolTip": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\BreakfastOrderSystem.Site\\Scripts\\MainContent\\blacklist.js",
-              "RelativeToolTip": "BreakfastOrderSystem.Site\\Scripts\\MainContent\\blacklist.js",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-09-19T07:36:35.625Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "MemberDetailVm.cs",
-              "DocumentMoniker": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\Breakfast.Site\\Models\\ViewModels\\MemberDetailVm.cs",
-              "RelativeDocumentMoniker": "Breakfast.Site\\Models\\ViewModels\\MemberDetailVm.cs",
-              "ToolTip": "C:\\Users\\chris\\OneDrive\\Desktop\\Breakfast0919\\Breakfast.Site\\Models\\ViewModels\\MemberDetailVm.cs",
-              "RelativeToolTip": "Breakfast.Site\\Models\\ViewModels\\MemberDetailVm.cs",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-18T08:03:23.275Z"
+              "Title": "loginstyles.css",
+              "DocumentMoniker": "C:\\Users\\user\\Desktop\\Breakfast1001\\User.Site\\Content\\css\\loginstyles.css",
+              "RelativeDocumentMoniker": "User.Site\\Content\\css\\loginstyles.css",
+              "ToolTip": "C:\\Users\\user\\Desktop\\Breakfast1001\\User.Site\\Content\\css\\loginstyles.css",
+              "RelativeToolTip": "User.Site\\Content\\css\\loginstyles.css",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAAAEUAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-10-01T06:38:02.371Z"
             }
           ]
         }

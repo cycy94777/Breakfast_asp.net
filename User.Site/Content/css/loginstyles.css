@@ -19,7 +19,7 @@
     font-weight: 400; /* 設置為粗體，如果需要其他粗細可以設置為 400, 500 等 */
     font-style: normal;
     font-optical-sizing: auto;
-    font-variation-settings: "wdth" 100;
+    font-variation-settings: "wdth";
     margin-bottom: 10px;
     font-size: 56px;
 }

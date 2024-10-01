@@ -61,9 +61,12 @@
 
         <!-- 頂部欄 -->
         <div class="top-bar">
-            <div class="greeting">Hi, @ViewBag.StoreName</div>
-            <div class="user-icon" style="background-color: #d3d3d3">
-                <i class="fa-solid fa-door-open" style="color:rgba(39, 38, 38, 0.869);"></i>
+            <div class="greeting">Hi, @Session["UserName"]</div>
+            <div class="user-icon" style="background-color: #d3d3d3; display: flex; align-items: center;">
+                <a href="@Url.Action("Logout", "Login")" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
+                    <i class="fa-solid fa-door-open" style="color: rgba(39, 38, 38, 0.869); margin-right: 5px;"></i>
+                    <span style="color: rgba(39, 38, 38, 0.869);">登出</span> <!-- 加入"登出"字 -->
+                </a>
             </div>
         </div>
 
@@ -81,6 +84,7 @@
 
     @*<script src="~/Scripts/function.js"></script>
     <script src="~/Scripts/loadOperationGraph.js"></script>*@
+    <script src="~/Scripts/Functions/logout.js"></script>
     <script src="~/Scripts/script.js"></script>
 
     @RenderSection("scripts", required: false)

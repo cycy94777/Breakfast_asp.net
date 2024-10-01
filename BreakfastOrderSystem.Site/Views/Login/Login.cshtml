@@ -1,0 +1,176 @@
+﻿@model BreakfastOrderSystem.Site.Models.ViewModels.LoginVm
+
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>佳佳早餐店後台登入</title>
+    <link rel="stylesheet" href="~/Content/login.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&display=swap" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h2 class="fredoka-custom">Welcome!</h2>
+            <h2 class="fredoka-custom2">
+                <span class="text-part1">佳佳</span>
+                <span class="text-part2">早餐店後台</span>
+
+                <img src="~/Content/images/logo.png" alt="圖案" style="width: 20px; height: 20px" class="text-logo" />
+            </h2>
+
+            <!-- 使用 Razor FormHelper 來處理表單 -->
+            @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { id = "loginForm" }))
+            {
+                @Html.AntiForgeryToken()
+                @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+
+                <div class="input-group">
+                    <label for="account">帳號:</label>
+                    @*<input type="email" id="email" name="email" placeholder="email" required />*@
+                    @Html.TextBoxFor(m => m.Account, new { placeholder = "請輸入您的帳號", @class = "input-field", required = "required", id = "account" })
+                    <span class="icon user-icon"></span>
+                </div>
+                <div class="input-group2">
+                    <label for="password">密碼:</label>
+                    @*<input type="password" id="password" name="password" placeholder="password" required />*@
+                    @Html.PasswordFor(m => m.Password, new { placeholder = "請輸入密碼", @class = "input-field", required = "required", id = "password" })
+                    <span class="icon password-icon"></span>
+                </div>
+                @ViewBag.LoginError
+
+                <button type="submit">登入</button>
+                <div class="links">
+                    <a href="#;" id="forgot-password">忘記密碼?</a>
+                </div>
+            }
+        </div>
+    </div>
+
+    
+</body>
+</html>
+
+<script>
+    $(document).ready(function () {
+
+        // 設置 AJAX 請求的 headers，以包含防止 CSRF 攻擊的驗證 token
+        $.ajaxSetup({
+            headers: { 'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val() }
+        });
+
+        // 表單提交事件
+        $('#loginForm').submit(function (event) {
+            event.preventDefault(); // 防止表單的默認提交行為
+
+            // 提取表單資料
+            var formData = $(this).serialize();
+
+            // 發送 AJAX 請求到後端
+            $.ajax({
+                url: '@Url.Action("Login", "Login")',
+                type: 'POST',
+                data: formData,
+                success: function (data) {
+                    if (data.success) {
+                        // 登入成功，跳轉到首頁
+                        window.location.href = data.url;
+                    } else {
+                        // 登入失敗，顯示 SweetAlert 提示
+                        Swal.fire({
+                            title: '登入失敗',
+                            text: data.message,  // 使用後端返回的錯誤訊息
+                            icon: 'error',
+                            confirmButtonText: '確定'
+                        });
+                    }
+                },
+                error: function () {
+                    // 如果請求失敗，顯示錯誤提示
+                    Swal.fire({
+                        title: '錯誤',
+                        text: '請檢查網絡連接或稍後再試。',
+                        icon: 'error',
+                        confirmButtonText: '確定'
+                    });
+                }
+            });
+        });
+
+
+        function forgotPassword() {
+            // 忘記密碼功能
+            Swal.fire({
+                title: '請輸入您註冊時的信箱',
+                input: 'email',
+                inputPlaceholder: '輸入您的信箱',
+                showCancelButton: true,
+                confirmButtonText: '確認',
+                cancelButtonText: '取消',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const email = result.value;
+
+                    // 發送請求到後端 Controller
+                    $.ajax({
+                        url: '@Url.Action("ForgotPassword", "Login")',
+                        type: 'POST',
+                        /*contentType: 'application/json',*/
+                        /*data: JSON.stringify({ email: email }),*/
+                        data: {email: email},
+                        success: function (data) {
+                            if (data.success) {
+                                Swal.fire({
+                                    title: '已成功寄送',
+                                    text: data.message,
+                                    icon: 'success',
+                                    confirmButtonText: '確定'
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: "寄送失敗: ",
+                                    text: data.message,
+                                    icon: "error",
+                                    allowOutsideClick: false
+                                });
+                            }
+                        },
+                        error: function () {
+                            Swal.fire({
+                                title: "錯誤",
+                                text: '請檢查網絡連接或稍後再試。',
+                                icon: "error",
+                                allowOutsideClick: false
+                            });
+                        }
+                    });
+                }
+            });
+        }
+
+        // 將 forgotPassword 函數綁定到點擊事件
+        $('#forgot-password').click(function (event) {
+            event.preventDefault(); // 防止默認行為
+            forgotPassword(); // 呼叫忘記密碼函數
+        });
+});
+
+
+
+
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

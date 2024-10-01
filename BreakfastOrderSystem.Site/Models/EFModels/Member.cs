@@ -44,6 +44,9 @@ namespace BreakfastOrderSystem.Site.Models.EFModels
 
         public bool IsConfirmed { get; set; }
 
+        [StringLength(50)]
+        public string ConfirmCode { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PointDetail> PointDetails { get; set; }
 

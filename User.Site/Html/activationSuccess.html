@@ -4,13 +4,53 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>帳號啟用成功</title>
-    <link rel="stylesheet" href="/Content/css/style.css" />
+    <!--<link rel="stylesheet" href="/Content/css/styles.css" />-->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+            background-image: url(/Content/Images/healthy-breakfast-table.jpg);
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            text-align: center; /* 使文本居中 */
+        }
+
+        h2 {
+            margin-bottom: 5px; /* 確保 h2 和 a 之間有足夠的空間 */
+        }
+
+        .nav-link {
+            text-decoration: none; /* 移除底線 */
+            color: slategrey; /* 可根據需求修改顏色 */
+            /*display:block;*/
+            margin-top: 5px;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline; /* 可選：當滑鼠懸停時加底線 */
+        }
+
+        .container {
+            width: 50%; 
+            height: auto; 
+            display: flex;
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            margin-left: 50px; 
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>恭喜！您的帳號已成功啟用！</h1>
+        <h1>恭喜您的帳號已成功啟用！</h1>
         <p>您現在可以使用您的帳號進行登錄。</p>
-        <a href="login.html">返回登錄頁面</a>
+        <a class="nav-link" href="login.html">返回登錄頁面</a>
     </div>
 </body>
 </html>

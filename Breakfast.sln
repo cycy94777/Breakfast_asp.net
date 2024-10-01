@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Breakfast.Site", "Breakfast
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BreakfastOrderSystem.Site", "BreakfastOrderSystem.Site\BreakfastOrderSystem.Site.csproj", "{7126A87E-1306-4846-B2FB-A3D41A50A5B0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "User.Site", "User.Site\User.Site.csproj", "{E76FF470-37E0-4C1B-857C-5F812D1EE756}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7126A87E-1306-4846-B2FB-A3D41A50A5B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7126A87E-1306-4846-B2FB-A3D41A50A5B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7126A87E-1306-4846-B2FB-A3D41A50A5B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E76FF470-37E0-4C1B-857C-5F812D1EE756}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E76FF470-37E0-4C1B-857C-5F812D1EE756}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E76FF470-37E0-4C1B-857C-5F812D1EE756}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E76FF470-37E0-4C1B-857C-5F812D1EE756}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

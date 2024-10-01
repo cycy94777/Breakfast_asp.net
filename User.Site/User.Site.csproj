@@ -141,8 +141,19 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Apis\CategoriesApiController.cs" />
+    <Compile Include="Controllers\Apis\ChangePasswordController.cs" />
+    <Compile Include="Controllers\Apis\ChangeProfileApiController.cs" />
+    <Compile Include="Controllers\Apis\ForgotPasswordController.cs" />
+    <Compile Include="Controllers\Apis\MemberPointsVm.cs" />
     <Compile Include="Controllers\Apis\MembersApiController.cs" />
+    <Compile Include="Controllers\Apis\OrderlistApiController.cs" />
+    <Compile Include="Controllers\Apis\OrdersApiController.cs" />
+    <Compile Include="Controllers\Apis\PointDetailsApiController.cs" />
+    <Compile Include="Controllers\Apis\PointslistApiController.cs" />
+    <Compile Include="Controllers\Apis\ProductsApiController.cs" />
     <Compile Include="Controllers\Apis\RegisterApiController.cs" />
+    <Compile Include="Controllers\Apis\ResetPasswordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -159,11 +170,31 @@
     <Compile Include="Models\EFModels\Product.cs" />
     <Compile Include="Models\EFModels\ProductAddOnDetail.cs" />
     <Compile Include="Models\EFModels\ProductCategory.cs" />
-    <Compile Include="Models\EFModels\Store.cs" />
     <Compile Include="Models\EFModels\TakeOrderNumber.cs" />
+    <Compile Include="Models\OrderRequest\OrderAddOnDetailRequest.cs" />
+    <Compile Include="Models\OrderRequest\OrderDetailRequest.cs" />
+    <Compile Include="Models\OrderRequest\OrderRequest.cs" />
+    <Compile Include="Models\PointRequest\PointDetailRequest.cs" />
+    <Compile Include="Models\ViewModels\AddOnVm.cs" />
+    <Compile Include="Models\ViewModels\ChangePasswordVm.cs" />
+    <Compile Include="Models\ViewModels\ForgotPasswordVm.cs" />
     <Compile Include="Models\ViewModels\LoginVm.cs" />
+    <Compile Include="Models\ViewModels\MemberUpdateVm.cs" />
     <Compile Include="Models\ViewModels\MemberVm.cs" />
+    <Compile Include="Models\ViewModels\OrderAddOnDetailVm.cs" />
+    <Compile Include="Models\ViewModels\OrderAgainVm.cs" />
+    <Compile Include="Models\ViewModels\OrderDetailVm.cs" />
+    <Compile Include="Models\ViewModels\OrderItemVm.cs" />
+    <Compile Include="Models\ViewModels\OrderUpdateVm.cs" />
+    <Compile Include="Models\ViewModels\OrderVm.cs" />
+    <Compile Include="Models\ViewModels\PointsDetailVm.cs" />
+    <Compile Include="Models\ViewModels\ProductAddOnItemVm.cs" />
+    <Compile Include="Models\ViewModels\ProductCategoryVm.cs" />
+    <Compile Include="Models\ViewModels\ProductOptionVm.cs" />
+    <Compile Include="Models\ViewModels\ProductVm.cs" />
     <Compile Include="Models\ViewModels\RegisterVm.cs" />
+    <Compile Include="Models\ViewModels\ResetPasswordVm.cs" />
+    <Compile Include="Models\ViewModels\TakeOrderNumberVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -183,15 +214,19 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\css\changepassword.css" />
     <Content Include="Content\css\layout.css" />
     <Content Include="Content\css\loginstyles.css" />
     <Content Include="Content\css\meal.css" />
     <Content Include="Content\css\member.css" />
+    <Content Include="Content\css\orderlist.css" />
+    <Content Include="Content\css\pointslist.css" />
     <Content Include="Content\css\register.css" />
     <Content Include="Content\css\styles.css" />
     <Content Include="Content\Images\blacktea.png" />
     <Content Include="Content\Images\cheese.png" />
     <Content Include="Content\Images\chips.png" />
+    <Content Include="Content\Images\defaultProfile.jpg" />
     <Content Include="Content\Images\drinks.png" />
     <Content Include="Content\Images\eggcake.png" />
     <Content Include="Content\Images\eggcakebig.png" />
@@ -214,11 +249,14 @@
     <Content Include="Content\Site.css" />
     <Content Include="Html\activation.html" />
     <Content Include="Html\activationSuccess.html" />
+    <Content Include="Html\changePassword.html" />
     <Content Include="Html\login.html" />
     <Content Include="Html\meal.html" />
     <Content Include="Html\member.html" />
     <Content Include="Html\orderlist.html" />
+    <Content Include="Html\pointslist.html" />
     <Content Include="Html\register.html" />
+    <Content Include="Html\resetPassword.html" />
     <Content Include="images\beauty.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -237,6 +275,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\orderlist.js" />
+    <Content Include="Scripts\pointslist.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

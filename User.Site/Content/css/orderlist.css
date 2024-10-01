@@ -1,0 +1,478 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    /*background-color: #f9f9f9;*/
+    /*padding: 2rem;*/
+}
+
+:root {
+    --main-bg-color: rgb(238, 238, 238);
+    --primary-color: #ec8d40;
+    --btn-primary-color: #ea9359;
+    --btn-primary-hover-color: #dd6909;
+    --card-primary-hover-color: #fde9e1;
+    ;
+    --card-primary-border-color: rgb(232, 126, 77);
+    --price-text: #f0ae1f;
+    --special-text: #fa7618;
+    --primary-text: #6e6e6e;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #ffffff;
+    margin: 15px;
+    border-radius: 8px;
+    height: 85%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* 添加的阴影效果 */
+}
+
+.table {
+    width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    border-collapse: collapse;
+}
+
+.tab_head_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /*margin-bottom: 2rem;*/
+}
+
+.custom-h2 {
+    font-size: 32px;
+}
+
+.tab_filter_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem; /* 控制 input 和 button 之間的間距 */
+    padding: 1rem;
+    padding-bottom: 1px;
+}
+
+#tab_filter_text,
+#text_search_btn,
+#datepicker,
+#date_search_btn {
+    height: 38px;
+}
+
+#tab_filter_text,
+#datepicker {
+    background-color: #f5f7f9;
+}
+
+#text_search_btn,
+#date_search_btn {
+    width: 100px;
+}
+
+.tab_filter_container input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 0.0625rem solid #ccc;
+    border-radius: 0.25rem;
+    width: 100%;
+    max-width: 12.5rem;
+}
+
+.tab_filter_container button {
+    background-color: #ea9359;
+    color: white;
+    border: none;
+    padding: 0.5rem 0.75rem;
+    font-size: large;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .tab_filter_container button:hover {
+        background-color: #dd6909;
+    }
+
+.table {
+    padding-top: 1px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    table th,
+    table td {
+        border-bottom: 0.0625rem solid #ddd; /* 只添加下邊框，形成水平線條 */
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+    table th {
+        font-size: 25px;
+        background-color: white;
+        font-weight: bolder;
+    }
+
+    table td {
+        font-weight: normal;
+        font-size: large;
+    }
+
+    table tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+
+.footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.footer-left {
+    font-size: 0.875rem;
+    color: #777;
+}
+
+.index_buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+    .index_buttons button {
+        background-color: white;
+        border: 0.0625rem solid #ccc;
+        padding: 0.5rem 0.75rem;
+        margin: 0.3125rem;
+        font-size: 0.875rem;
+        cursor: pointer;
+    }
+
+        .index_buttons button.active {
+            background-color: var(--btn-primary-color);
+            color: white;
+            border: none;
+        }
+
+        .index_buttons button:hover {
+            background-color: var(--btn-primary-hover-color);
+            color: white;
+        }
+
+.details-btn {
+    display: inline-block;
+    padding: 6px 20px;
+    border: 0.125rem solid #ffa07a; /* 淡橘色邊框 */
+    border-radius: 5px; /* 圓角效果 */
+    color: #ff4500; /* 紅色字體 */
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    background-color: transparent; /* 無背景色 */
+    cursor: pointer;
+}
+
+    .details-btn:hover {
+        background-color: #ffa07a; /* 滑鼠移入背景色 */
+        color: white; /* 滑鼠移入時字體變白 */
+    }
+
+/* --------------------------------------------------------- */
+
+/* 模态框的样式 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* 调整模态框内容，使其居中并设置文字大小 */
+.modal-content {
+    background-color: white;
+    margin: auto;
+    padding: 1.25rem;
+    border-radius: 0.3125rem;
+    width: 80%;
+    max-width: 31.25rem;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    max-height: 80vh;
+    font-size: 0.875rem; /* 调整整体文字大小 */
+}
+
+.order-items-container {
+    margin-top: 15px;
+    max-height: 300px;
+    overflow-y: auto;
+    width: 100%;
+    padding-right: 10px;
+}
+
+    .order-items-container::-webkit-scrollbar {
+        width: 5px;
+        border: none;
+    }
+
+    .order-items-container::-webkit-scrollbar-thumb {
+        background-color: var(--btn-primary-color);
+        border-radius: 10px;
+    }
+
+.item-name, .item-quantity p, .item-price p {
+    font-size: 16px; /* 統一設置字體大小 */
+    color: var(--primary-text); /* 統一設置字體顏色，例如橘色 */
+    font-weight: bold; /* 統一設置字體加粗 */
+}
+
+.order-status-text {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.total-amount {
+    color: rgb(30, 165, 91);
+}
+/* 标题样式 */
+.modal-content h2 {
+    font-size: 1.125rem; /* 调整标题字号 */
+    margin-bottom: 1.25rem;
+    text-align: left
+}
+
+/* 关闭按钮 */
+.close-btn {
+    position: absolute;
+    right: 0.9375rem;
+    top: 0.9375rem;
+    font-size: 1.5rem; /* 调整关闭按钮的字号 */
+    cursor: pointer;
+}
+
+
+
+
+/* 单个商品的样式 */
+.order-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    border-bottom: 0.0625rem solid #ccc;
+    padding: 0.625rem 0;
+}
+
+.item-image img {
+    width: 3.75rem;
+    height: 3.75rem;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.item-details {
+    flex: 1;
+    text-align: left;
+    font-size: 12px;
+    color: var(--primary-text);
+}
+
+button.disabled {
+    background-color: gray; /* 灰色背景 */
+    color: #ffffff; /* 白色字體 */
+    cursor: not-allowed; /* 滑鼠指針變為禁止樣式 */
+    opacity: 0.6; /* 調整透明度顯示為不可點 */
+}
+
+
+
+.item-quantity,
+.item-price {
+    text-align: left;
+    width: 3.125rem;
+}
+
+/* 订单总结部分 */
+.order-summary {
+    border-top: 0.0625rem solid #ccc;
+    padding-top: 0.625rem;
+}
+
+    .order-summary p {
+        display: flex;
+        justify-content: space-between;
+        margin: 0.3125rem 0;
+        font-size: 16px; /* 订单总结文字大小 */
+        color: var(--primary-text);
+    }
+
+    .order-summary span {
+        font-weight: bold;
+    }
+
+/* 取消订单按钮 */
+.cancel-order-btn {
+    background-color: var(--btn-primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    display: block;
+    margin: 1.25rem auto 0;
+    border-radius: 0.3125rem;
+    font-size: 1rem; /* 按钮文字的字号 */
+    width: 120px;
+    height: 40px;
+}
+
+    .cancel-order-btn:hover {
+        background-color: var(--btn-primary-hover-color);
+    }
+/* 模態框樣式 */
+.modal-content {
+    background-color: white;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    max-width: 90%; /* 適應小螢幕 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加微弱陰影 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000; /* 確保彈出框在最上層 */
+    text-align: left; /* 文字居中對齊 */
+}
+
+    /* 標題樣式 */
+    .modal-content h2 {
+        font-size: 1.5rem;
+        color: #ff6f3d; /* 橘色 */
+        margin-bottom: 15px;
+        font-weight: bold; /* 粗體字 */
+    }
+
+    /* 說明文字樣式 */
+    .modal-content ol {
+        text-align: left; /* 項目對齊左邊 */
+        font-size: 1rem;
+        color: #333;
+        margin: 0;
+        padding-left: 20px; /* 調整項目符號與文字的間距 */
+        line-height: 1.5rem; /* 行距 */
+        margin-top: 35px;
+    }
+
+.cancel-text {
+    color: #ff6f3d;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.modal-content ol li {
+    margin-bottom: 10px; /* 項目之間的間距 */
+}
+
+    .modal-content ol li span {
+        color: #ff3d3d; /* 紅色強調文字 */
+        font-weight: bold;
+    }
+
+/* 按鈕容器樣式 */
+.modal-content .button-container {
+    display: flex;
+    justify-content: center; /* 讓按鈕置中排列 */
+    gap: 20px; /* 兩個按鈕之間的間距 */
+    margin-top: 20px; /* 按鈕區域與上方文字的間距 */
+}
+
+/* 按鈕樣式 */
+/*  .modal-content button {
+       
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+       
+        
+        font-weight: bold;
+    }*/
+
+/* 取消按鈕樣式（白底橘色字） */
+#cancelClose {
+    background-color: #fff; /* 按鈕背景色 */
+    color: var(--btn-primary-color); /* 按鈕文字顏色 */
+    padding: 8px 40px; /* 按鈕內部邊距 */
+    border: 2px solid var(--btn-primary-color); /* 新增2px橘色邊框 */
+    border-radius: 5px; /* 可選：使邊框圓角 */
+    font-size: large
+}
+
+/* 確認按鈕樣式（橘底白色字） */
+#confirmCancel {
+    background-color: var(--btn-primary-color);
+    color: #fff;
+    border: none;
+    padding: 8px 40px;
+    border-radius: 5px;
+    border: 2px solid var(--btn-primary-color); /* 新增2px橘色邊框 */
+    margin-top: 40px;
+    font-size: large
+}
+
+    #confirmCancel:hover {
+        background-color: var(--btn-primary-hover-color);
+        border: 2px solid var(--btn-primary-hover-color);
+    }
+
+
+#cancelClose:hover {
+    background-color: var(--btn-primary-color); /* 滑鼠移入背景色 */
+    color: white; /* 滑鼠移入時字體變白 */
+}
+
+/* 未取餐 - 灰色背景白字 */
+.status-not-picked {
+    background-color: rgb(159, 159, 159); /* 灰色背景 */
+    color: white; /* 白字 */
+    padding: 8px 16px;
+    border-radius: 5px;
+}
+
+/* 已取餐 - 綠色背景白字 */
+.status-picked {
+    background-color: rgb(30, 165, 91); /* 綠色背景 */
+    color: white; /* 白字 */
+    padding: 8px 16px;
+    border-radius: 5px;
+}
+
+/* 已取消 - 紅色背景白字 */
+.status-cancelled {
+    background-color: rgb(217, 88, 88); /* 紅色背景 */
+    color: white; /* 白字 */
+    padding: 8px 16px;
+    border-radius: 5px;
+}
+
+/* 已棄單 - 紅色背景白字 */
+.status-abandoned {
+    background-color: rgb(217, 88, 88); /* 紅色背景 */
+    color: white; /* 白字 */
+    padding: 8px 16px;
+    border-radius: 5px;
+}

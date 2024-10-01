@@ -1,0 +1,305 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    /*background-color: #f9f9f9;
+    padding: 2rem;*/
+}
+
+:root {
+    --main-bg-color: rgb(238, 238, 238);
+    --primary-color: #ec8d40;
+    --btn-primary-color: #ea9359;
+    --btn-primary-hover-color: #dd6909;
+    --card-primary-hover-color: #fde9e1;
+    ;
+    --card-primary-border-color: rgb(232, 126, 77);
+    --price-text: #f0ae1f;
+    --special-text: #fa7618;
+    --primary-text: #6e6e6e;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #ffffff;
+    margin: 15px;
+    border-radius: 8px;
+    height: 85%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* 添加的阴影效果 */
+}
+
+.table {
+    width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    padding: 2rem;
+    border-collapse: collapse;
+}
+
+h2 {
+    display: inline-flex;
+    align-items: center;
+}
+
+.alert {
+    width: 35px; /* 圓的寬度 */
+    height: 35px; /* 圓的高度 */
+    background-color: #ff7043; /* 橘色背景 */
+    border-radius: 50%; /* 讓背景成為圓形 */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem; /* 驚嘆號的大小 */
+    color: white; /* 白色的驚嘆號 */
+    cursor: pointer;
+    margin-left: 13px; /* 與文字之間的間距 */
+}
+
+    .alert::before {
+        content: "!";
+    }
+
+.points-info {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .points-info .points {
+        font-size: 1.25rem;
+        color: red;
+    }
+
+.date-selector {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+}
+
+    .date-selector input {
+        padding: 0.5rem;
+        margin-right: 0.625rem;
+        font-size: 1rem;
+        border: 0.0625rem solid #ccc;
+        border-radius: 0.25rem;
+        background-color: #f5f7f9;
+    }
+
+.search-btn {
+    background-color: #ea9359;
+    color: white;
+    border: none;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    border-radius: 0.625rem;
+    cursor: pointer;
+    width: 6.25rem; /* 100px */
+}
+
+    .search-btn:hover {
+        background-color: #dd6909;
+    }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    padding-top: 0.0625rem; /* 1px */
+}
+
+    table th,
+    table td {
+        padding: 1.5rem;
+        text-align: center;
+        border-bottom: 0.0625rem solid #ddd;
+    }
+
+    table td {
+        font-weight: normal;
+        font-size: large;
+    }
+
+    table th {
+        background-color: white;
+        font-weight: bolder;
+    }
+
+.earned-points {
+    color: green;
+}
+
+.used-points {
+    color: red;
+}
+
+.pagination {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+    .pagination button {
+        background-color: white;
+        border: 0.0625rem solid #ccc;
+        padding: 0.5rem 0.75rem;
+        margin: 0.3125rem;
+        font-size: 0.875rem;
+        cursor: pointer;
+    }
+
+    .pagination .active {
+        background-color: #ff9800;
+        color: white;
+        border: none;
+    }
+
+    .pagination button:hover {
+        background-color: #e68900;
+        color: white;
+    }
+
+/* 規則彈窗樣式 */
+.rules-popup {
+    position: fixed;
+    background-color: white;
+    border: 0.0625rem solid #ddd;
+    padding: 2rem;
+    width: 80%;
+    max-width: 31.25rem; /* 500px */
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+    .rules-popup h3 {
+        color: orange;
+        margin-bottom: 0.625rem;
+        font-size: 1.125rem;
+        text-align: center;
+    }
+
+    .rules-popup ol {
+        list-style: decimal;
+        padding-left: 1.25rem;
+    }
+
+    .rules-popup li {
+        margin-bottom: 0.625rem;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+/* 关闭按钮样式 */
+.close-popup {
+    position: absolute;
+    top: 0.625rem;
+    right: 0.625rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #999;
+}
+
+    .close-popup:hover {
+        color: red;
+    }
+
+/* 遮罩層的樣式 */
+#modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色背景 */
+    z-index: 998;
+    display: none; /* 預設隱藏 */
+}
+
+/* 彈出框內容樣式 */
+#rules-popup {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    max-width: 90%; /* 適應小螢幕 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加微弱陰影 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999; /* 確保彈出框在遮罩層之上 */
+    display: none; /* 預設隱藏 */
+    text-align: center;
+}
+
+    /* 彈出框標題樣式 */
+    #rules-popup h2 {
+        font-size: 1.5rem;
+        color: #ff6f3d; /* 橘色 */
+        margin-bottom: 15px;
+        font-weight: bold; /* 粗體字 */
+    }
+
+    /* 彈出框內容的列表樣式 */
+    #rules-popup ol {
+        text-align: left; /* 項目對齊左邊 */
+        font-size: 1rem;
+        color: #333;
+        margin: 0;
+        padding-left: 20px; /* 調整項目符號與文字的間距 */
+        line-height: 1.5rem; /* 行距 */
+    }
+
+        #rules-popup ol li {
+            margin-bottom: 10px; /* 項目之間的間距 */
+        }
+
+            #rules-popup ol li span {
+                color: #ff3d3d; /* 紅色強調文字 */
+                font-weight: bold;
+            }
+
+    /* 按鈕容器樣式 */
+    #rules-popup .button-container {
+        display: flex;
+        justify-content: center; /* 讓按鈕置中排列 */
+        gap: 20px; /* 兩個按鈕之間的間距 */
+        margin-top: 20px; /* 按鈕區域與上方文字的間距 */
+    }
+
+    /* 彈出框按鈕樣式 */
+    #rules-popup button {
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        border: 2px solid #ff6f3d; /* 邊框為橘色 */
+        width: 120px;
+        font-weight: bold;
+    }
+
+/* 取消按鈕樣式（白底橘色字） */
+#cancelClose {
+    background-color: #fff;
+    color: #ff6f3d;
+}
+
+/* 確認按鈕樣式（橘底白色字） */
+#confirmCancel {
+    background-color: #ff6f3d;
+    color: #fff;
+    border: none;
+}
+
+    #confirmCancel:hover, #cancelClose:hover {
+        opacity: 0.8; /* 增加 hover 效果 */
+    }

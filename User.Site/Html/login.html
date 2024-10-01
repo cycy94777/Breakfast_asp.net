@@ -24,12 +24,12 @@
             <form @submit.prevent="login">
                 <div class="input-group">
                     <label for="account">帳號:</label>
-                    <input type="text" v-model="account" placeholder="輸入您的帳號" required />
+                    <input type="text" id="account" v-model="account" placeholder="輸入您的帳號" required />
                     <span class="icon user-icon"></span>
                 </div>
                 <div class="input-group2">
                     <label for="password">密碼:</label>
-                    <input type="password" v-model="password" placeholder="輸入您的密碼" required />
+                    <input type="password" id="password" v-model="password" placeholder="輸入您的密碼" required />
                     <span class="icon password-icon"></span>
                 </div>
 
@@ -69,11 +69,13 @@
                     if (response.ok) {
                         const data = await response.json();
                         const userData = {
+                            id: data.id,
                             name: data.name,
-                            profilePhoto: data.profilePhoto,
+                            profilePhoto: data.profilePhoto || '/Content/Images/defaultProfile.jpg',
                             account: data.account,
                             points: data.points,
                         };
+                        console.log("html",userData);
 
                         localStorage.setItem('user', JSON.stringify(userData));
 
@@ -140,13 +142,49 @@
               confirmButtonText: '確認',
               cancelButtonText: '取消',
             }).then((result) => {
-              if (result.isConfirmed) {
-                Swal.fire({
-                  title: '已成功寄送',
-                  text: '修改密碼連結已發送至您的信箱',
-                  icon: 'success',
-                  confirmButtonText: '確定'
-                });
+                if (result.isConfirmed) {
+                    const email = result.value;
+
+                    // 發送請求到後端
+                    fetch('/api/MembersApi/ForgotPassword', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ email: email }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire({
+                                title: '已成功寄送',
+                                text: '修改密碼連結已發送至您的信箱',
+                                icon: 'success',
+                                confirmButtonText: '確定'
+                            });
+                        }
+                        else {
+                            // 顯示錯誤提示框
+                            Swal.fire({
+                                title: "更新失敗: ",
+                                text: `${data.message}`,
+                                icon: "error",
+                                allowOutsideClick: false // 禁止外部點擊關閉
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire({
+                            title: '發生錯誤',
+                            text: '請稍後再試',
+                            icon: 'error',
+                            confirmButtonText: '確定'
+                        });
+                    });
+
+
+            
               }
             });
           }

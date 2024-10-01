@@ -51,6 +51,10 @@ namespace BreakfastOrderSystem.Site.Models.EFModels
                 .IsUnicode(false);
 
             modelBuilder.Entity<Member>()
+                .Property(e => e.ConfirmCode)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Member>()
                 .HasMany(e => e.PointDetails)
                 .WithRequired(e => e.Member)
                 .WillCascadeOnDelete(false);

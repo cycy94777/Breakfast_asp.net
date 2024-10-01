@@ -34,7 +34,7 @@
                 </div>
                 <div class="input-group3">
                     <label for="phone">電話:</label>
-                    <input type="tel" id="phone" required />
+                    <input type="tel" id="phone" required pattern="[0-9]{10}" />
                 </div>
                 <div class="input-group4">
                     <label for="password">密碼:</label>
@@ -68,7 +68,17 @@
             });
 
             document.getElementById("registerForm").addEventListener("submit", async function (event) {
+
+                // Prevent the default form submission behavior
                 event.preventDefault();
+
+                const form = event.target; // Get the form that triggered the event
+
+                // 使用瀏覽器的表單驗證
+                if (!form.checkValidity()) {
+                    form.reportValidity(); // 顯示瀏覽器內建的錯誤提示
+                    return;
+                }
 
                 const name = document.getElementById("name").value;
                 const account = document.getElementById("account").value;
@@ -76,6 +86,13 @@
                 const password = document.getElementById("password").value;
                 const confirmPassword = document.getElementById("confirmPassword").value;
                 const profilePhoto = document.getElementById("profilePhoto").files[0];
+
+                // Ensure the email format is valid
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple email regex
+                if (!emailPattern.test(account)) {
+                    Swal.fire("錯誤", "請輸入有效的電子郵件地址", "error");
+                    return;
+                }
 
                 if (password !== confirmPassword) {
                     Swal.fire("錯誤", "密碼不匹配", "error");
@@ -103,7 +120,7 @@
                         allowOutsideClick: false // 禁止外部點擊關閉
                     }).then(() => {
                         // 跳轉到 meal.html
-                        window.location.href = 'meal.html';
+                        window.location.href = 'login.html';
                     });
                 } else {
                     const errorMessage = await response.text();

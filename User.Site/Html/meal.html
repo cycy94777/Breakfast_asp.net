@@ -54,7 +54,7 @@
         <nav class="navbar">
 
             <div class="container-fluid">
-                <a class="navbar-brand" href="/Html/meal.html">
+                <a class="navbar-brand" href="meal.html">
                     <img src="/Content/images/logo.png" alt="Logo" width="32" height="32" class="d-inline-block align-text-top">
                     <span class="text-part1">佳佳</span><span class="text-part2">早餐店</span>
                 </a>
@@ -63,7 +63,7 @@
                     <template v-if="isLoggedIn">
                         <div class="user-info-dropdown">
                             <div class="user-info" @click="toggleUserDropdown" :class="{ 'active': userDropdownVisible }">
-                                <img :src="user.profilePhoto" alt="頭像" class="profile-photo">
+                                <img id="profile-img" :src="profilePhoto" alt="頭像" class="profile-photo">
                                 <span>{{ user.name }}</span>
                                 <i class="fas fa-chevron-down"></i> <!-- 下拉图标 -->
                             </div>
@@ -96,8 +96,9 @@
                         <li>
                             <a href="meal.html"><i class="fa-solid fa-burger"></i> 餐點點餐</a>
                         </li>
-                        <li class="dropdown">
-                            <a href="javascript:void(0)" @click="toggleDropdown" id="dropdown">
+                        <li class="dropdown memberOnly">
+                            <!--@click="toggleDropdown"-->
+                            <a href="javascript:void(0)" @click="checkMemberDropdown()" id="dropdown">
                                 <i class="fa-regular fa-user"></i> 會員資料
                             </a>
                             <!-- 子菜单，使用 transition 添加过渡效果 -->
@@ -109,10 +110,10 @@
                             </transition>
                         </li>
                         <li>
-                            <a href="/Html/orderlist.html"><i class="fa-regular fa-rectangle-list"></i> 訂單列表</a>
+                            <a href="javascript:void(0)" @click="checkMemberStatus('/Html/orderlist.html')"><i class="fa-regular fa-rectangle-list"></i> 訂單列表</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa-regular fa-rectangle-list"></i> 點數明细</a>
+                            <a href="javascript:void(0)" @click="checkMemberStatus('/Html/pointslist.html')"><i class="fa-regular fa-rectangle-list"></i> 點數明細</a>
                         </li>
                     </ul>
                     <!-- 聯絡資訊區塊 -->
@@ -287,9 +288,20 @@
                     isReorder: false, // 用於標識是否是再點一次的操作
                     dropdownVisible: false, // 控制会员资料下拉菜单的显示
                     isLoggedIn: false, // 用來標識是否已登入
-                    user: {}, // 儲存會員資料
-                    userDropdownVisible: false
+                    //user: {}, // 儲存會員資料
+                    userDropdownVisible: false,
+                    profilePhoto: '', // 用於顯示頭像
+                    user: {
+                        name: '',
+                        profilePhoto: '/Content/Images/defaultProfile.jpg' // 預設值
+                    }
                 };
+            },
+            computed: {
+                // 計算屬性，動態返回頭像或預設圖片
+                profilePhoto() {
+                    return this.user.profilePhoto || '/Content/Images/defaultProfile.jpg';
+                }
             },
             methods: {
                 toggleDropdown() {
@@ -316,11 +328,69 @@
                 // 檢查用戶是否已登入
                 checkLoginStatus() {
                     const userData = localStorage.getItem('user');
+                    console.log(userData);
                     if (userData) {
+
                         this.user = JSON.parse(userData);
                         this.isLoggedIn = true; // 用戶已登入
+                        this.user.profilePhoto = this.user.profilePhoto || '/Content/Images/defaultProfile.jpg';
+                        this.profilePhoto = this.user.profilePhoto; // 更新頭像
+                        this.memberName = this.user.name; // 更新用戶名稱
+                        this.id = this.user.id;
+                        console.log(this.id);
+
+                        if (this.user.id) {
+                            // 加載點數
+                            this.loadPoints(this.user.id);
+                            /*this.loadLastOrder(this.user.id);*/
+                        }
                     } else {
                         this.isLoggedIn = false; // 用戶未登入
+                        this.profilePhoto = '/Content/Images/defaultProfile.jpg';
+                    }
+                },
+                checkMemberDropdown(){
+                    if (!this.user.id) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '尚未登入',
+                            text: '此為會員專區,請先登入會員',
+                            customClass: {
+                                confirmButton: 'custom-swal-button'  // 自定義按鈕的 class
+                            }
+                        }).then(() => {
+                            // 跳轉到 login.html
+                            window.location.reload();  
+                        });
+
+                        return;
+                    }
+                    else {
+                        // 若已登入，則展開/收起子選單
+                        this.toggleDropdown();
+                    }
+                    
+                },
+                checkMemberStatus(targetUrl) {
+                    if (!this.user.id) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '尚未登入',
+                            text: '此為會員限定專區,請先登入會員',
+                            customClass: {
+                                confirmButton: 'custom-swal-button'  // 自定義按鈕的 class
+                            }
+                        }).then(() => {
+                            // 跳轉到 login.html
+                            /*window.location.href = 'login.html';*/
+                            window.location.reload();  
+                        });
+
+                        return;
+                    }
+                    else {
+                        // 如果已登入，直接跳轉到目標頁面
+                        window.location.href = targetUrl;
                     }
                 },
                 addOrUpdateCartItem(cartItem) {
@@ -344,15 +414,15 @@
 
                 async loadLastOrder() {
                     try {
-                        const memberId = 1;
+                        const memberId = this.user.id;
 
                         // 從 API 獲取最新的訂單
-                        const orderResponse = await fetch(`https://localhost:44398/api/ordersapi/latest?memberId=${memberId}`);
+                        const orderResponse = await fetch(`/api/ordersapi/latest?memberId=${memberId}`);
                         const orderData = await orderResponse.json();
                         const lastOrder = orderData;
 
                         // 從 API 加載所有商品數據
-                        const mealResponse = await fetch('https://localhost:44398/api/productsapi/all');
+                        const mealResponse = await fetch('/api/productsapi/all');
                         const products = await mealResponse.json();
 
                         lastOrder.items.forEach(item => {
@@ -492,7 +562,7 @@
                 async loadCards() {
                     try {
                         // 呼叫用於加載商品類別的 API
-                        const response = await fetch('https://localhost:44398/api/categoriesapi/all');
+                        const response = await fetch('/api/categoriesapi/all');
 
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
@@ -520,7 +590,7 @@
                 async displayProducts(categoryId) {
                     try {
                         // 呼叫用於加載該類別下的產品的 API
-                        const response = await fetch(`https://localhost:44398/api/categoriesapi/products?categoryId=${categoryId}`);
+                        const response = await fetch(`/api/categoriesapi/products?categoryId=${categoryId}`);
 
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
@@ -561,6 +631,7 @@
                 },
                 async loadPoints(memberId) {
                     try {
+                        console.log(memberId)
                         // 根據登入者的 memberId，請求相應的會員資料
                         const response = await fetch(`/api/membersapi/members?memberId=${memberId}`);
 
@@ -577,6 +648,7 @@
                         console.error('Error loading member points:', error);
                     }
                 },
+                
 
                 createOrder() {
                     // 假設你有會員資訊，並且已知會員點數（這些可以從你的 API 獲取或在登入時記錄）
@@ -587,7 +659,7 @@
 
                     // 準備訂單資料
                     const order = {
-                        memberId: 2, // 假設用戶已經登入並有 ID
+                        memberId: this.user.id, // 假設用戶已經登入並有 ID
                         total: this.totalAmount, // 訂單總金額
                         pointsUsed: pointsUsed, // 使用的點數
                         finalTotal: this.totalAmount - pointsUsed, // 最終金額
@@ -631,6 +703,24 @@
                 },
 
                 async submitOrder() {
+                    // 檢查是否已登入
+                    if (!this.user.id) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '尚未登入',
+                            text: '請先登入再進行點餐',
+                            customClass: {
+                                confirmButton: 'custom-swal-button'  // 自定義按鈕的 class
+                            }
+                        }).then(() =>
+                             {
+                                // 跳轉到 login.html
+                                window.location.href = 'login.html';
+                            }
+                        );
+
+                        return;
+                    }
 
                     // 1. 檢查購物車是否為空
                     if (this.cart.length === 0) {
@@ -659,14 +749,14 @@
                     }
 
                     // 假設你先使用一個測試用的 memberId
-                    const fakeMemberId = 2;  // 測試用的假設 memberId
+                    const fakeMemberId = this.id;  // 測試用的假設 memberId
 
                     const orderData = this.createOrder(); // 生成訂單資料
                     orderData.memberId = fakeMemberId;  // 在這裡插入假設的 memberId
 
                     try {
                         // 發送訂單資料到後端
-                        const response = await fetch('https://localhost:44398/api/ordersapi/create', {
+                        const response = await fetch('/api/ordersapi/create', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -708,7 +798,7 @@
                             };
 
                             // 發送點數明細資料到後端
-                            const pointResponse = await fetch('https://localhost:44398/api/pointdetails/create', {
+                            const pointResponse = await fetch('/api/pointdetails/create', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',
@@ -753,11 +843,23 @@
             },
 
             mounted() {
+                // 監聽頭像更新事件
+                window.addEventListener('profilePhotoUpdated', () => {
+                    this.checkLoginStatus(); // 重新檢查狀態以獲取最新頭像
+                });
+
+                const storedUser = JSON.parse(localStorage.getItem('user'));
+                if (storedUser) {
+                    this.user = { ...storedUser }; // 確保 user 是反應式物件
+                }
+                window.addEventListener('profilePhotoUpdated', this.fetchMemberData);
 
                 this.loadCards();  // 初始化加載商品類別
                 this.generateClosestTimeOptions();
-                const loggedInMemberId = 2;  // 假裝的登入者的 memberId
-                this.loadPoints(loggedInMemberId);  // 加載此會員的點數
+                //const loggedInMemberId = this.id;  // 假裝的登入者的 memberId
+                //console.log(loggedInMemberId);
+                
+                /*this.loadPoints();*/  // 加載此會員的點數
                 this.checkLoginStatus(); // 檢查用戶是否已登入
             }
         }).mount('#app');

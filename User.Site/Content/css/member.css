@@ -17,7 +17,7 @@
     --btn-primary-color: #ea9359;
     --btn-primary-hover-color: #dd6909;
     --card-primary-hover-color: #fde9e1;
-    ;
+    
     --card-primary-border-color: rgb(232, 126, 77);
     --price-text: #f0ae1f;
     --special-text: #fa7618;
@@ -152,6 +152,35 @@ form {
     transition: background-color 0.3s;
     z-index: 2;
     height: 44px;
+}
+
+
+.delete-icon {
+    position: absolute; /* 使用絕對定位以控制位置 */
+    /*bottom: 2px;*/ /* 調整與父元素底部的距離，確保與 edit-icon 在同一水平線 */
+    /*right: 70px;*/ /* 根據需要調整與 edit-icon 的距離 */
+    /*background-color: darkred;*/ /* 根據需求設置顏色 */
+    /*color: darkred;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    z-index: 2;
+    height: 44px;*/
+    display: flex;  /*使內容居中*/ 
+    align-items: center;  /*垂直居中*/ 
+    justify-content: center;   
+    position: absolute;
+    bottom: 2px;
+    /*right: 70px;*/
+    /*background-color: var(--btn-primary-color);*/
+    color: lightgrey ;
+   /* border-radius: 50%;*/
+    /*padding: 10px;*/
+    cursor: pointer;
+    transition: background-color 0.3s;
+    z-index: 2;
+    /*height: 44px;*/
 }
 
 

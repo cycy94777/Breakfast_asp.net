@@ -1,0 +1,253 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>佳佳早餐首頁</title>
+
+    <link rel="stylesheet" href="/Content/css/layout.css" />
+    <link rel="stylesheet" href="/Content/css/pointslist.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/Content/css/styles.css">
+
+    <script src="https://unpkg.com/vue@3.5.3/dist/vue.global.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script>
+    <script src="/Scripts/pointslist.js"></script>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+
+
+    <div id="app">
+        <nav class="navbar">
+
+            <div class="container-fluid">
+                <a class="navbar-brand" href="meal.html">
+                    <img src="/Content/images/logo.png" alt="Logo" width="32" height="32" class="d-inline-block align-text-top">
+                    <span class="text-part1">佳佳</span><span class="text-part2">早餐店</span>
+                </a>
+                <div class="navbar-links">
+                    <!-- 根據登入狀態切換顯示 -->
+                    <template v-if="isLoggedIn">
+                        <div class="user-info-dropdown">
+                            <div class="user-info" @click="toggleUserDropdown" :class="{ 'active': userDropdownVisible }">
+                                <img :src="user.profilePhoto" alt="頭像" class="profile-photo">
+                                <span>{{ user.name }}</span>
+                                <i class="fas fa-chevron-down"></i> <!-- 下拉图标 -->
+                            </div>
+                            <transition name="fade">
+                                <div v-if="userDropdownVisible" class="dropdown-menu">
+                                    <a href="login.html" @click="logout" class="logout-link">
+                                        <i class="fas fa-sign-out-alt"></i> 登出
+                                    </a>
+                                </div>
+                            </transition>
+                        </div>
+                    </template>
+                    <template v-else>
+                        <a href="/Html/login.html" class="btn-link">登入</a>
+                        <a href="/Html/register.html" class="btn-link">註冊</a>
+                    </template>
+                </div>
+        </nav>
+
+        <div class="container-all">
+            <div class="container-left">
+                <!-- 导航栏 -->
+                <nav id="sidebar">
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#"><i class="fa-regular fa-heart"></i> 再點一次</a>
+                        </li>
+                        <li>
+                            <a href="meal.html"><i class="fa-solid fa-burger"></i> 餐點點餐</a>
+                        </li>
+                        <li class="dropdown">
+                            <!--@click="toggleDropdown"-->
+                            <a href="javascript:void(0)" @click="checkMemberDropdown()" id="dropdown">
+                                <i class="fa-regular fa-user"></i> 會員資料
+                            </a>
+                            <!-- 子菜单，使用 transition 添加过渡效果 -->
+                            <transition name="slide-fade">
+                                <ul v-if="dropdownVisible" id="sublist" class="list-unstyled dropdown-content">
+                                    <li><a href="member.html">修改資料</a></li>
+                                    <li><a href="changepassword.html">修改密碼</a></li>
+                                </ul>
+                            </transition>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" @click="checkMemberStatus('/Html/orderlist.html')"><i class="fa-regular fa-rectangle-list"></i> 訂單列表</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" @click="checkMemberStatus('/Html/pointslist.html')"><i class="fa-regular fa-rectangle-list"></i> 點數明細</a>
+                        </li>
+                    </ul>
+                    <!-- 聯絡資訊區塊 -->
+                    <div class="contact-info">
+                        <h4>聯絡資訊</h4>
+                        <p><i class="fa-solid fa-phone"></i> 02-22765377</p>
+                        <p><i class="fa-solid fa-location-dot"></i> 新北市新莊區立信三街12巷65號1樓</p>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="container-right">
+                <div class="main-content">
+                    <h2>點數明細查詢</h2>
+                    <span id="alert-btn" class="alert"></span>
+                    <div class="points-info">
+                        <p>目前剩餘點數 <span class="points"></span></p>
+                        <div class="date-selector">
+                            <input type="text" id="datepicker" name="date" placeholder="請輸入日期">
+                            <button class="search-btn">搜尋</button>
+                        </div>
+                    </div>
+                    <div class="table">
+
+                        <div id="rules-popup" class="rules-popup">
+                            <span id="close-popup" class="close-popup">&times;</span>
+                            <h3>點數使用規則</h3>
+                            <ol>
+                                <li>每消費1元獲得1點，60點折抵1元。</li>
+                                <li>每張訂單須超過60元才能使用，最多使用10點。</li>
+                                <li>點數無使用期限。</li>
+                            </ol>
+                        </div>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>訂單編號</th>
+                                    <th>日期</th>
+                                    <th>原來點數</th>
+                                    <th>已獲得</th>
+                                    <th>已使用</th>
+                                    <th>剩餘點數</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-body">
+                                <!-- 这里是空的，数据将由 JavaScript 动态生成 -->
+                            </tbody>
+                        </table>
+                        <div class="pagination" id="pagination">
+                            <button class="prev-btn">&lt;</button>
+                            <button class="page-btn active">1</button>
+                            <button class="next-btn">&gt;</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const { createApp } = Vue;
+
+            createApp({
+                data() {
+                    return {
+                        dropdownVisible: false, // 控制会员资料下拉菜单的显示
+                        isLoggedIn: false, // 用來標識是否已登入
+                        user: {}, // 儲存會員資料
+                        userDropdownVisible: false // 控制用户信息下拉菜单的显示
+                    };
+                },
+                methods: {
+                    toggleDropdown() {
+                        this.dropdownVisible = !this.dropdownVisible; // 切换会员资料的下拉菜单
+                    },
+                    toggleUserDropdown() {
+                        this.userDropdownVisible = !this.userDropdownVisible; // 切换用户信息的下拉菜单
+                    },
+                    // 登出
+                    logout() {
+                        $.ajax({
+                            url: '/api/MembersApi/Logout', //登出的 API 網址
+                            type: 'POST',
+                            success: (response) => {
+                                localStorage.removeItem('user');   // 移除本地用戶信息
+                                this.isLoggedIn = false;           // 標記為未登錄
+                                /*window.location.reload();*/          // 重新加載頁面
+                            },
+                            error: (err) => {
+                                console.error("登出失敗", err);
+                            }
+                        });
+                    },
+                    // 檢查用戶是否已登入
+                    checkLoginStatus() {
+                        const userData = localStorage.getItem('user');
+                        if (userData) {
+                            this.user = JSON.parse(userData);
+                            this.isLoggedIn = true; // 用户已登录
+                        } else {
+                            this.isLoggedIn = false; // 用户未登录
+                        }
+                    },
+                    checkMemberDropdown() {
+                        if (!this.user.id) {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: '尚未登入',
+                                text: '此為會員專區,請先登入會員',
+                                customClass: {
+                                    confirmButton: 'custom-swal-button'  // 自定義按鈕的 class
+                                }
+                            }).then(() => {
+                                // 跳轉到 login.html
+                                window.location.href = 'login.html';
+                            });
+
+                            return;
+                        }
+                        else {
+                            // 若已登入，則展開/收起子選單
+                            this.toggleDropdown();
+                        }
+
+                    },
+                    checkMemberStatus(targetUrl) {
+                        if (!this.user.id) {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: '尚未登入',
+                                text: '此為會員限定專區,請先登入會員',
+                                customClass: {
+                                    confirmButton: 'custom-swal-button'  // 自定義按鈕的 class
+                                }
+                            }).then(() => {
+                                // 跳轉到 login.html
+                                window.location.href = 'login.html';
+                            });
+
+                            return;
+                        }
+                        else {
+                            // 如果已登入，直接跳轉到目標頁面
+                            window.location.href = targetUrl;
+                        }
+                    },
+                },
+                mounted() {
+                    const storedUser = JSON.parse(localStorage.getItem('user'));
+                    if (storedUser) {
+                        this.user = { ...storedUser }; // 確保 user 是反應式物件
+                    }
+                    this.checkLoginStatus(); // 檢查用戶是否已登入
+                    initializejQueryFunctions(this.user.id);
+                    window.addEventListener('profilePhotoUpdated', this.fetchMemberData);
+                }
+            }).mount('#app');
+
+
+
+
+        </script>
+</body>
+</html>

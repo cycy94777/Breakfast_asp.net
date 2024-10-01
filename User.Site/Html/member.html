@@ -13,28 +13,27 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <div id="app">
         <nav class="navbar">
-
             <div class="container-fluid">
-                <a class="navbar-brand" href="/html/html/meal.html">
+                <a class="navbar-brand" href="meal.html">
                     <img src="/Content/images/logo.png" alt="Logo" width="32" height="32" class="d-inline-block align-text-top">
                     <span class="text-part1">佳佳</span><span class="text-part2">早餐店</span>
                 </a>
                 <div class="navbar-links">
-                    <!-- 根據登入狀態切換顯示 -->
                     <template v-if="isLoggedIn">
                         <div class="user-info-dropdown">
                             <div class="user-info" @click="toggleUserDropdown" :class="{ 'active': userDropdownVisible }">
-                                <img :src="user.profilePhoto" alt="頭像" class="profile-photo">
+                                <img id="profile-img" :src="user.profilePhoto" alt="頭像" class="profile-photo">
                                 <span>{{ user.name }}</span>
-                                <i class="fas fa-chevron-down"></i> <!-- 下拉图标 -->
+                                <i class="fas fa-chevron-down"></i>
                             </div>
                             <transition name="fade">
                                 <div v-if="userDropdownVisible" class="dropdown-menu">
-                                    <a href="#" @click="logout" class="logout-link">
+                                    <a href="login.html" @click="logout" class="logout-link">
                                         <i class="fas fa-sign-out-alt"></i> 登出
                                     </a>
                                 </div>
@@ -58,10 +57,12 @@
                         <li>
                             <a href="/Html/meal.html"><i class="fa-solid fa-burger"></i> 餐點點餐</a>
                         </li>
-                        <li class="dropdown">
-                            <a href="javascript:void(0)" @click="toggleDropdown" id="dropdown">
+                        <li class="dropdown memberOnly">
+                            <!--@click="toggleDropdown"-->
+                            <a href="javascript:void(0)" @click="checkMemberDropdown()" id="dropdown">
                                 <i class="fa-regular fa-user"></i> 會員資料
                             </a>
+                            <!-- 子菜单，使用 transition 添加过渡效果 -->
                             <transition name="slide-fade">
                                 <ul v-if="dropdownVisible" id="sublist" class="list-unstyled dropdown-content">
                                     <li><a href="member.html">修改資料</a></li>
@@ -70,10 +71,10 @@
                             </transition>
                         </li>
                         <li>
-                            <a href="/Html/orderlist.html"><i class="fa-regular fa-rectangle-list"></i> 訂單列表</a>
+                            <a href="javascript:void(0)" @click="checkMemberStatus('/Html/orderlist.html')"><i class="fa-regular fa-rectangle-list"></i> 訂單列表</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa-regular fa-rectangle-list"></i> 點數明细</a>
+                            <a href="javascript:void(0)" @click="checkMemberStatus('/Html/pointslist.html')"><i class="fa-regular fa-rectangle-list"></i> 點數明細</a>
                         </li>
                     </ul>
                     <div class="contact-info">
@@ -93,8 +94,11 @@
                                 <div class="avatar-wrapper">
                                     <div class="avatar-container" @click="onAvatarClick">
                                         <img id="profilePhoto" :src="profilePhoto" alt="會員大頭貼" />
-                                        <div class="edit-icon">
-                                            <i class="fa-solid fa-pen"></i>
+                                        <div class="edit-icon" >
+                                            <i class="fa-solid fa-pen" @click.stop="onAvatarClick"></i>
+                                        </div>
+                                        <div class="delete-icon" @click.stop="onDeletePhotoClick">
+                                            <i class="fa-regular fa-trash-can"></i>
                                         </div>
                                     </div>
                                     <div class="avatar-label">大頭貼</div>
@@ -105,15 +109,15 @@
                                 </div>
                             </div>
 
-                            <form class="container">
+                            <form class="container" @submit="updateMemberData">
                                 <label for="name">姓名</label>
-                                <input type="text" id="name" v-model="name" />
+                                <input type="text" id="name" v-model="name" required />
 
                                 <label for="email">Email</label>
-                                <input type="email" id="email" v-model="email" />
+                                <input type="email" id="email" v-model="account" required />
 
                                 <label for="phone">電話</label>
-                                <input type="text" id="phone" v-model="phone" />
+                                <input type="text" id="phone" v-model="phone" required pattern="[0-9]{10}" />
 
                                 <button type="submit">儲存變更</button>
                             </form>
@@ -124,6 +128,8 @@
         </div>
     </div>
 
+
+
     <script>
         const { createApp } = Vue;
 
@@ -131,44 +137,104 @@
             data() {
                 return {
                     dropdownVisible: false,
-                    isLoggedIn: false, // 用來標識是否已登入
-                    user: {}, // 儲存會員資料
-                    userDropdownVisible: false, // 控制用户信息下拉菜单的显示
+                    isLoggedIn: false,
+                    //user: {},
+                    userDropdownVisible: false,
                     memberName: '',
                     registrationDate: '',
                     name: '',
                     email: '',
                     phone: '',
-                    profilePhoto: ''
+                    profilePhoto: '',
+                    originalAccount: '',
+                    originalProfilePhoto: '',
+                    account: '', // 新帳號
+                    user: {
+                        name: '',
+                        profilePhoto: '/Content/Images/defaultProfile.jpg' // 預設值
+                    },
+                    isFetching: false, // 用來防止重複呼叫
                 };
             },
             methods: {
                 toggleDropdown() {
-                  // 切換下拉選單的狀態
-                  this.dropdownVisible = !this.dropdownVisible;
-
-                  // 將狀態保存到 localStorage
-                  localStorage.setItem('dropdownVisible', this.dropdownVisible);
-              },
+                    this.dropdownVisible = !this.dropdownVisible;
+                    localStorage.setItem('dropdownVisible', this.dropdownVisible);
+                },
                 toggleUserDropdown() {
-                    this.userDropdownVisible = !this.userDropdownVisible; // 切换用户信息的下拉菜单
+                    this.userDropdownVisible = !this.userDropdownVisible;
                 },
                 // 登出
                 logout() {
-                localStorage.removeItem('user'); // 移除用户信息
-                this.isLoggedIn = false; // 标记为未登录
-                window.location.reload(); // 重新加载页面，恢复为未登录状态
+                    $.ajax({
+                        url: '/api/MembersApi/Logout', //登出的 API 網址
+                        type: 'POST',
+                        success: (response) => {
+                            localStorage.removeItem('user');   // 移除本地用戶信息
+                            this.isLoggedIn = false;           // 標記為未登錄
+                            /*window.location.reload();*/          // 重新加載頁面
+                        },
+                        error: (err) => {
+                            console.error("登出失敗", err);
+                        }
+                    });
                 },
-                // 檢查用戶是否已登入
                 checkLoginStatus() {
-                const userData = localStorage.getItem('user');
-                if (userData) {
-                    this.user = JSON.parse(userData);
-                    this.isLoggedIn = true; // 用户已登录
-                } else {
-                    this.isLoggedIn = false; // 用户未登录
-                }
+                    const userData = localStorage.getItem('user');
+                    console.log(userData);
+                    if (userData) {
+                        this.user = JSON.parse(userData);
+                        this.isLoggedIn = true;
+                        this.account = this.user.account; // 獲取 account 值
+                        console.log(this.user); // 确认是否正确获取用户数据
+                    } else {
+                        this.isLoggedIn = false;
+                    }
                 },
+                checkMemberDropdown() {
+                    if (!this.user.id) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '尚未登入',
+                            text: '此為會員專區,請先登入會員',
+                            customClass: {
+                                confirmButton: 'custom-swal-button'  // 自定義按鈕的 class
+                            }
+                        }).then(() => {
+                            // 跳轉到 login.html
+                            window.location.href = 'login.html';
+                        });
+
+                        return;
+                    }
+                    else {
+                        // 若已登入，則展開/收起子選單
+                        this.toggleDropdown();
+                    }
+
+                },
+                checkMemberStatus(targetUrl) {
+                    if (!this.user.id) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: '尚未登入',
+                            text: '此為會員限定專區,請先登入會員',
+                            customClass: {
+                                confirmButton: 'custom-swal-button'  // 自定義按鈕的 class
+                            }
+                        }).then(() => {
+                            // 跳轉到 login.html
+                            window.location.href = 'login.html';
+                        });
+
+                        return;
+                    }
+                    else {
+                        // 如果已登入，直接跳轉到目標頁面
+                        window.location.href = targetUrl;
+                    }
+                },
+                // 當點擊頭像時觸發
                 onAvatarClick() {
                     const fileInput = document.createElement('input');
                     fileInput.type = 'file';
@@ -176,42 +242,298 @@
                     fileInput.onchange = (event) => {
                         const file = event.target.files[0];
                         if (file) {
+                            // 儲存原始頭像的 URL
+                            this.originalProfilePhoto = this.profilePhoto;
+                            // 檢查文件大小 (假設限制為 2MB)
+                            const maxSizeInMB = 2;
+                            if (file.size > maxSizeInMB * 1024 * 1024) {
+                                Swal.fire({
+                                    title: "文件過大",
+                                    text: `請上傳小於 ${maxSizeInMB}MB 的圖片文件`,
+                                    icon: "error",
+                                    allowOutsideClick: false
+                                });
+                                return;
+                            }
+
+                            // 預覽頭像
                             const reader = new FileReader();
                             reader.onload = (e) => {
-                                this.profilePhoto = e.target.result;
+                                this.profilePhoto = e.target.result; // 預覽圖片
+                                // 上傳新頭像到服務器
+                                this.uploadProfilePhoto(file);
                             };
                             reader.readAsDataURL(file);
                         }
                     };
                     fileInput.click();
                 },
+
+                // 上傳頭像到服務器
+                async uploadProfilePhoto(file) {
+                   
+                    const accountToUse = this.originalAccount; // 使用未更改的帳號進行上傳
+                    const formData = new FormData();
+                    formData.append('profilePhoto', file);
+                    formData.append('account', accountToUse); // 使用 this.account
+
+                    try {
+                        const response = await fetch('/api/MembersApi/UpdateProfilePhoto', {
+                            method: 'POST',
+                            body: formData
+                        });
+
+                        if (!response.ok) {
+                            // 在發生錯誤時，將頭像恢復為原本的照片
+                            this.profilePhoto = this.originalProfilePhoto;
+                            throw new Error('頭像更新失敗，請求失敗');
+                        }
+
+                        const data = await response.json();
+                        // 假設 API 回傳的是一個帶有新的頭像 URL 的對象
+                        this.profilePhoto = data.profilePhotoUrl || this.profilePhoto;
+                        localStorage.setItem("profilePhoto", this.profilePhoto); // 儲存到 Local Storage
+                        this.user.profilePhoto = data.profilePhotoUrl || this.user.profilePhoto;
+
+
+                        // 新增這行以通知其他頁面更新
+                        window.dispatchEvent(new Event('profilePhotoUpdated'));
+
+                        this.fetchMemberData();
+                        Swal.fire({
+                            title: "頭像更新成功",
+                            text: "您的頭像已成功更新！",
+                            icon: "success",
+                            allowOutsideClick: false
+                        });
+                    } catch (error) {
+
+                        // 在發生錯誤時，將頭像恢復為原本的照片
+                        this.profilePhoto = this.originalProfilePhoto;
+
+                        console.error('更新頭像時發生錯誤:', error);
+                        Swal.fire({
+                            title: "頭像更新失敗",
+                            text: "請稍後再試。",
+                            icon: "error",
+                            allowOutsideClick: false
+                        });
+
+                    }
+                },
+                // 當點擊刪除圖標時觸發
+                async onDeletePhotoClick() {
+                    // 確認用戶是否要刪除圖像
+                    const result = await Swal.fire({
+                        title: "刪除頭像",
+                        text: "您確定要刪除頭像嗎？",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "刪除",
+                        cancelButtonText: "取消",
+                        allowOutsideClick: false
+                    });
+
+                    if (result.isConfirmed) {
+                        try {
+                            console.log("Account:", this.account); // 確認這裡的值
+                            const formData = new FormData();
+                            formData.append('account', this.account);
+
+
+                            // 發送請求給伺服器, 刪除頭像
+
+                            const response = await fetch('/api/MembersApi/DeleteProfilePhoto', {
+                                method: 'POST',
+                                body: formData, // 使用 this.account
+                                
+                            });
+
+
+                            const data = await response.json();
+
+                            
+                            console.log(data);
+
+                            if (!data.success) {
+                                Swal.fire({
+                                    title: "頭像刪除失敗",
+                                    text: data.message,
+                                    icon: "error",
+                                    allowOutsideClick: false
+                                });
+                                return;
+                            }
+
+                            // 更新 profilePhoto，並加上時間戳
+                            const newProfilePhoto = data.defaultProfilePhotoUrl || '/Content/Images/defaultProfile.jpg';
+                            this.user.profilePhoto = newProfilePhoto + `?t=${new Date().getTime()}`; // 確保這裡是反應式的
+                            localStorage.setItem("user", JSON.stringify(this.user));
+
+                            // 通知其他頁面更新
+                            window.dispatchEvent(new Event('profilePhotoUpdated'));
+
+                            // 更新頁面資料
+                            this.fetchMemberData();
+
+
+                            Swal.fire({
+                                title: "頭像已刪除",
+                                text: "您的頭像已成功刪除。",
+                                icon: "success",
+                                allowOutsideClick: false
+                            });
+                        } catch (error) {
+                            console.error('刪除頭像時發生錯誤:', error);
+                            Swal.fire({
+                                title: "頭像刪除失敗111",
+                                text: "請稍後再試。",
+                                icon: "error",
+                                allowOutsideClick: false
+                            });
+                        }
+                    }
+                },
+                
                 fetchMemberData() {
-                    fetch('/api/MembersApi/Login')
+                    if (this.isFetching) return; // 防止重複呼叫且檢查未提交的數據
+                    this.isFetching = true; // 設置為正在請求
+                    console.log('Fetching member data for account:', this.user.account);//c 
+
+
+                    fetch(`/api/MembersApi/GetMemberData?account=${this.user.account}`, {//c
+                        method: 'GET',
+                        credentials: 'include',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    })
                         .then(response => response.json())
                         .then(data => {
-                            const member = data.members[0];
-                            this.memberName = member.name;
-                            this.registrationDate = member.registrationDate;
-                            this.name = member.name;
-                            this.email = member.email;
-                            this.phone = member.phone;
-                            this.profilePhoto = member.profilePhoto;
+                            this.memberName = data.name;
+                            var formatRegistrationDate = data.registrationDate.split("T")[0];
+                            /*this.registrationDate = data.registrationDate;*/
+                            this.registrationDate = formatRegistrationDate;
+                            this.name = data.name;
+                            this.originalAccount = data.account;
+                            this.account = data.account;
+                            this.phone = data.phone;
+                            //this.profilePhoto = data.profilePhoto;
+
+                            // 檢查 profilePhoto 是否為 null，若是則使用預設照片
+                            this.profilePhoto = data.profilePhoto || '/Content/Images/defaultProfile.jpg'; // 替換為您的預設照片路徑
+                            // 更新右上角頭像
+                            this.user.profilePhoto = this.profilePhoto;
+
+                            // 更新 localStorage
+                            localStorage.setItem("user", JSON.stringify(this.user));
+
+                            // 更新右上角小圖的 src 屬性
+                            const profileImgElement = document.getElementById('profile-img'); // 替換為您小圖的 ID
+                            if (profileImgElement) {
+                                profileImgElement.src = this.profilePhoto;
+                            }
+
+                            // 新增這行以通知其他頁面更新
+                            window.dispatchEvent(new Event('profilePhotoUpdated'));
                         })
                         .catch(error => {
-                            console.error('Error fetching members data:', error);
+                            console.error('Error fetching member data:', error);
+                            this.profilePhoto = '/Content/Images/defaultProfile.jpg'; // Set default in case of an error
+
+                        })
+                        .finally(() => {
+                            this.isFetching = false; // Reset fetching state after completion
+                        });
+                },
+                updateMemberData(event) {
+                    // Prevent the default form submission behavior
+                    event.preventDefault();
+
+                    const form = event.target; // Get the form that triggered the event
+
+                    // 使用瀏覽器的表單驗證
+                    if (!form.checkValidity()) {
+                        form.reportValidity(); // 顯示瀏覽器內建的錯誤提示
+                        return;
+                    }
+                    /*this.user.account = this.account;*///a
+                    const updatedData = {
+                        name: this.name,
+                        originalAccount : this.originalAccount,
+                        account: this.account,
+                        phone: this.phone,
+                        profilePhoto: this.profilePhoto
+                    };
+                    fetch('/api/MembersApi/UpdateMemberData', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(updatedData)
+                    })
+                        .then(response => {
+                            console.log(response);
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('Member data updated successfully:', data);
+                            // Update this.account if it changes
+                            this.account = data.account; // Update the account if necessary
+                            this.user.account = this.account
+                            this.fetchMemberData(); // Call to get updated member data
+
+                            // 更新右上角名字
+                            this.user.name = data.name;
+
+                            // 更新 localStorage
+                            localStorage.setItem("user", JSON.stringify(this.user));
+
+                            // 新增這行以通知其他頁面更新
+                            window.dispatchEvent(new Event('profilePhotoUpdated'));
+
+
+                            // 顯示更改成功的提示框
+                            Swal.fire({
+                                title: "更改成功",
+                                text: "您的資料已成功更新！",
+                                icon: "success",
+                                allowOutsideClick: false // 禁止外部點擊關閉
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error updating member data:', error);
+
+                            // 顯示錯誤提示框
+                            Swal.fire({
+                                title: "更新失敗",
+                                text: "資料更新時出現錯誤，請重試。",
+                                icon: "error",
+                                allowOutsideClick: false // 禁止外部點擊關閉
+                            });
                         });
                 }
             },
             mounted() {
-                this.fetchMemberData();
+                const storedUser = JSON.parse(localStorage.getItem('user'));
+                if (storedUser) {
+                    this.user = { ...storedUser }; // 確保 user 是反應式物件
+                }
+
+                window.addEventListener('profilePhotoUpdated', this.fetchMemberData);
+
                 this.checkLoginStatus();
-                 // 當頁面加載時，從 localStorage 中讀取下拉選單的狀態
-              const dropdownStatus = localStorage.getItem('dropdownVisible');
-              if (dropdownStatus !== null) {
-                  this.dropdownVisible = JSON.parse(dropdownStatus);
-              }
+                if (this.isLoggedIn) {
+                    this.fetchMemberData();
+                }
+            },
+            beforeUnmount() {
+                window.removeEventListener('profilePhotoUpdated', this.fetchMemberData);
             }
         }).mount('#app');
     </script>
-</body>
+   </body>
 </html>
